@@ -36,6 +36,9 @@ class BaseSpider(scrapy.Spider, abc.ABC):
             body = response.body.decode("utf-8")
         body_selector = scrapy.selector.Selector(text=body)
 
+        if not self.allow_leaving_domain() and url.startswith(self.get_domain()):
+            return
+
         if self.is_relevant(url, body_selector):
             file_name = self.get_file_name(response.url)
             # We need to think how we will name the files
@@ -104,6 +107,14 @@ class BaseSpider(scrapy.Spider, abc.ABC):
         '''
         Returns:
             * Boolean indicating whether the page is dynamic or not
+        '''
+        pass
+
+    @abc.abstractmethod
+    def allow_leaving_domain(self):
+        '''
+        Returns:
+            * Boolean indicating whether the crawler is allowed to leave the domain or not
         '''
         pass
 

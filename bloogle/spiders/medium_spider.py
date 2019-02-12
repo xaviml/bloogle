@@ -29,5 +29,8 @@ class MediumSpider(BaseSpider):
     def is_dynamic(self):
         return True
 
+    def allow_leaving_domain(self):
+        return False
+
     def get_timer(self):
         return 3

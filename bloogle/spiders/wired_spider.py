@@ -19,14 +19,15 @@ class WiredSpider(BaseSpider):
         return "https://www.wired.com"
         
     def is_relevant(self, url, body_selector):
-        if not url.startswith(self.get_domain()):
-            return False
         if url.startswith('https://www.wired.com/story/'):
             return True
         title = body_selector.css('header > h1')
         return len(title) == 2
 
     def is_dynamic(self):
+        return False
+
+    def allow_leaving_domain(self):
         return False
 
     def get_timer(self):
