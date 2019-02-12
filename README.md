@@ -64,7 +64,4 @@ scrapy crawl my_spider
 This will start the crawler 'my_spider'. In case the spider extends BaseSpider, then it will create an output folder with the name of the spider and it will contain all the html files.
 
 ## Debug
-In case of using VSCode, you can run *run.py* in the debug option and change this line to something like:
-```python
-execute(['scrapy','crawl', 'my_spider'])
-```
+In case of using VSCode, you can run *run.py* and change the crawler you want to execute.
