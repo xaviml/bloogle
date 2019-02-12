@@ -1,11 +1,10 @@
 import abc
 import scrapy
+from scrapy import Request
 import os
 from selenium import webdriver
 import time
 from scrapy_selenium import SeleniumRequest
-
-TIMER = 5
 
 class BaseSpider(scrapy.Spider, abc.ABC):
 
@@ -15,22 +14,35 @@ class BaseSpider(scrapy.Spider, abc.ABC):
         os.makedirs(self.output_dir, exist_ok=True)
 
         urls = self.get_initial_url()
-        # Send selenium requests with the start urls
         for url in urls:
-            yield SeleniumRequest(url=url, callback=self.parse)
+            self.getRequest(url)
     
+    def getRequest(self, url):
+        if self.is_dynamic():
+            yield SeleniumRequest(url=url, callback=self.parse)
+        else: 
+            yield Request(url=url, callback=self.parse)
+
     def parse(self, response):
+        url = response.url
+        if self.is_dynamic():
+            driver = response.request.meta['driver']
+            driver.delete_all_cookies()
+            time.sleep(self.get_timer())
+            body = driver.page_source
+        else:
+            body = response.body
+
+        if not self.is_relevant(url, body):
+            return
+        
         file_name = self.get_file_name(response.url)
         # We need to think how we will name the files
         filename = self.output_dir + file_name
-        driver = response.request.meta['driver']
-        driver.delete_all_cookies()
-
-        time.sleep(TIMER)
         
         # Save the content of the HTML
         with open(filename, 'w') as f:
-            f.write(driver.page_source)
+            f.write(body)
         self.log('Saved file %s' % filename)
         
         # Get links from the web page and request again
@@ -43,7 +55,7 @@ class BaseSpider(scrapy.Spider, abc.ABC):
                     url = next_page.get_attribute('href')
                     if url.startswith('/'):
                         url = self.get_domain() + url
-                    yield SeleniumRequest(url=url, callback=self.parse)
+                    self.getRequest(url)
 
     @abc.abstractmethod
     def get_initial_url(self):
@@ -74,5 +86,29 @@ class BaseSpider(scrapy.Spider, abc.ABC):
         '''
         Returns:
             * The domain of the webside is crawling
+        '''
+        pass
+
+    @abc.abstractmethod
+    def is_relevant(self, url, body):
+        '''
+        Returns:
+            * Boolean indicating is a page we want to crawl
+        '''
+        pass
+
+    @abc.abstractmethod
+    def is_dynamic(self):
+        '''
+        Returns:
+            * Boolean indicating whether the page is dynamic or not
+        '''
+        pass
+
+    @abc.abstractmethod
+    def get_timer(self):
+        '''
+        Returns:
+            * Timer
         '''
         pass

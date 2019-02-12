@@ -22,3 +22,12 @@ class MediumSpider(BaseSpider):
 
     def get_domain(self):
         return "https://medium.com"
+
+    def is_relevant(self, url, body):
+        return True
+
+    def is_dynamic(self):
+        return True
+
+    def get_timer(self):
+        return 3

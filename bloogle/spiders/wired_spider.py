@@ -15,10 +15,20 @@ class MediumSpider(BaseSpider):
         return ['ul.we-recommend-component__items a[href*="/story/"]',
                 'div.sponsored-stories-component ul.sponsored-stories-component__items a.recommendation-item-component__link',
                 'ul.paywall a[href]',
-                'div.wrapper-cards li.card-component__description a[href]']
+                'div.wrapper-cards li.card-component__description a[href]',
+                'a[href^="https://www.wired.com/story/"]']
 
     def get_file_name(self, url):
         return url.split("/")[-2]
 
     def get_domain(self):
         return "https://www.wired.com"
+        
+    def is_relevant(self, url, body):
+        return True
+
+    def is_dynamic(self):
+        return True
+
+    def get_timer(self):
+        return 3
