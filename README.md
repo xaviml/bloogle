@@ -1,7 +1,7 @@
 # bloogle: A Blog Search Engine
 
 ## How to create a Spider
-There are two option to create an spider:
+There are two options to create an spider:
 * Extending from scrapy.Spider and implementing the methods that scrapy.Spider needs
 * Extending BaseSpider
 
@@ -36,7 +36,7 @@ class MySpider(BaseSpider):
 ```
 
 ## Set up
-To run this, you need to install the requirements:
+To run this, you need python >= 3.6.x and install the requirements:
 ```
 pip install -r requirements.txt
 ```
