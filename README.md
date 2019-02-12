@@ -11,6 +11,10 @@ This is an abstract class that force you to implement the following methods:
 * _get_next_links_: It should return a list of CSS query selector, pointing to an element \<a>
 * _get_file_name_: It should returns the name of the file given a URL
 * _get_domain_: It needs to return the domain of the website, in case there are relative paths, this domain will be added before sending the request.
+* *is_relevant*: It returns a boolean indicating is a page we want to crawl.
+* *is_dynamic*: It returns a boolean indicating whether the page is dynamic or not.
+* *allow_leaving_domain*: It returns a boolean indicating whether the crawler is allowed to leave the domain or not
+* *get_timer*: Wait time in case of using selenium (is_dynamic = True)
 
  ## Example
 ```python
@@ -26,13 +30,25 @@ class MySpider(BaseSpider):
     def get_next_links(self):
         return ['div.next a[href]']
 
-
     def get_file_name(self, url):
         return url.split("/")[-1]
 
     def get_domain(self):
         return "https://myspider.com"
 
+    def is_relevant(self, url, body_selector):
+        # ... check body_selector
+        # If it returns True, it will save the html
+        return True
+    
+    def is_dynamic(self):
+        return False
+    
+    def allow_leaving_domain(self):
+        return False
+
+    def get_timer(self):
+        return 0
 ```
 
 ## Set up
@@ -54,7 +70,7 @@ sudo chmod +x /usr/bin/chromedriver
 ### Windows
 As an additional step, you need to install chromedriver, for windows follow these steps:
 * Download: https://chromedriver.storage.googleapis.com/2.41/chromedriver_win32.zip
-* 
+* Place *chromedriver.exe* in "C:\\Windows\\chromedriver.exe"
 
 ## Run
 ```
