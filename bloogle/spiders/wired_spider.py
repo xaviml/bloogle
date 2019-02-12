@@ -24,7 +24,7 @@ class MediumSpider(BaseSpider):
     def get_domain(self):
         return "https://www.wired.com"
         
-    def is_relevant(self, url, body):
+    def is_relevant(self, url, body_selector):
         return True
 
     def is_dynamic(self):

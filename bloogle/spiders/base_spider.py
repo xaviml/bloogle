@@ -32,8 +32,9 @@ class BaseSpider(scrapy.Spider, abc.ABC):
             body = driver.page_source
         else:
             body = response.body
+        body_selector = scrapy.selector.Selector(text=body)
 
-        if not self.is_relevant(url, body):
+        if not self.is_relevant(url, body_selector):
             return
         
         file_name = self.get_file_name(response.url)
@@ -90,7 +91,7 @@ class BaseSpider(scrapy.Spider, abc.ABC):
         pass
 
     @abc.abstractmethod
-    def is_relevant(self, url, body):
+    def is_relevant(self, url, body_selector):
         '''
         Returns:
             * Boolean indicating is a page we want to crawl
