@@ -42,7 +42,7 @@ class BaseSpider(scrapy.Spider, abc.ABC):
             filename = self.output_dir + file_name
             
             # Save the content of the HTML
-            with open(filename, 'w') as f:
+            with open(filename, 'w', encoding="utf-8") as f:
                 f.write(body)
             self.log('Saved file %s' % filename)
         
