@@ -5,23 +5,25 @@ import os
 from selenium import webdriver
 import time
 from scrapy_selenium import SeleniumRequest
+import os
 
 class BaseSpider(scrapy.Spider, abc.ABC):
 
     def start_requests(self):
         # Creating the directory for the crawler
-        self.output_dir = 'output/{}/'.format(self.name)
+        path = os.path.join('output', '{}', '')
+        self.output_dir = path.format(self.name)
         os.makedirs(self.output_dir, exist_ok=True)
 
         urls = self.get_initial_url()
         for url in urls:
-            self.getRequest(url)
+            yield self.getRequest(url)
     
     def getRequest(self, url):
         if self.is_dynamic():
-            yield SeleniumRequest(url=url, callback=self.parse)
+            return SeleniumRequest(url=url, callback=self.parse)
         else: 
-            yield Request(url=url, callback=self.parse)
+            return Request(url=url, callback=self.parse)
 
     def parse(self, response):
         url = response.url
@@ -56,7 +58,7 @@ class BaseSpider(scrapy.Spider, abc.ABC):
                     url = next_page.get_attribute('href')
                     if url.startswith('/'):
                         url = self.get_domain() + url
-                    self.getRequest(url)
+                    yield self.getRequest(url)
 
     @abc.abstractmethod
     def get_initial_url(self):

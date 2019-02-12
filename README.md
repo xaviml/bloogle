@@ -33,17 +33,38 @@ class MySpider(BaseSpider):
     def get_domain(self):
         return "https://myspider.com"
 
- ```
+```
 
- ## Run
- ```
- scrapy crawl my_spider
- ```
+## Set up
+To run this, you need to install the requirements:
+```
+pip install -r requirements.txt
+```
 
- This will start the crawler 'my_spider'. In case the spider extends BaseSpider, then it will create an output folder with the name of the spider and it will contain all the html files.
+### Linux
+As an additional step, you need to install chromedriver, for linux follow these commands:
+```
+wget https://chromedriver.storage.googleapis.com/2.41/chromedriver_linux64.zip
+unzip chromedriver_linux64.zip
+sudo mv chromedriver /usr/bin/chromedriver
+sudo chown root:root /usr/bin/chromedriver
+sudo chmod +x /usr/bin/chromedriver
+```
 
- ## Debug
- In case of using VSCode, you can run *run.py* in the debug option and change this line to something like:
- ```python
- execute(['scrapy','crawl', 'my_spider'])
- ```
+### Windows
+As an additional step, you need to install chromedriver, for windows follow these steps:
+* Download: https://chromedriver.storage.googleapis.com/2.41/chromedriver_win32.zip
+* 
+
+## Run
+```
+scrapy crawl my_spider
+```
+
+This will start the crawler 'my_spider'. In case the spider extends BaseSpider, then it will create an output folder with the name of the spider and it will contain all the html files.
+
+## Debug
+In case of using VSCode, you can run *run.py* in the debug option and change this line to something like:
+```python
+execute(['scrapy','crawl', 'my_spider'])
+```

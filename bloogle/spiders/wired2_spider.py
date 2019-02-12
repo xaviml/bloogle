@@ -7,7 +7,7 @@ class Wired2Spider(BaseSpider):
         return ['https://www.wired.com/author/wired-staff/page/1/']
 
     def get_next_links(self):
-        return ['']
+        return ['li.archive-item-component a.archive-item-component__link']
 
     def get_file_name(self, url):
         return url.split("/")[-2]
@@ -16,10 +16,11 @@ class Wired2Spider(BaseSpider):
         return "https://www.wired.com"
         
     def is_relevant(self, url, body_selector):
-        return True
+        title = body_selector.css('header.article-main-component__header h1.title')
+        return len(title) == 1
 
     def is_dynamic(self):
         return False
 
     def get_timer(self):
-        return 3
+        return 0
