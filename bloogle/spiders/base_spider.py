@@ -36,17 +36,15 @@ class BaseSpider(scrapy.Spider, abc.ABC):
             body = response.body
         body_selector = scrapy.selector.Selector(text=body)
 
-        if not self.is_relevant(url, body_selector):
-            return
-        
-        file_name = self.get_file_name(response.url)
-        # We need to think how we will name the files
-        filename = self.output_dir + file_name
-        
-        # Save the content of the HTML
-        with open(filename, 'w') as f:
-            f.write(body)
-        self.log('Saved file %s' % filename)
+        if self.is_relevant(url, body_selector):
+            file_name = self.get_file_name(response.url)
+            # We need to think how we will name the files
+            filename = self.output_dir + file_name
+            
+            # Save the content of the HTML
+            with open(filename, 'w') as f:
+                f.write(body)
+            self.log('Saved file %s' % filename)
         
         # Get links from the web page and request again
         css_links = self.get_next_links()
