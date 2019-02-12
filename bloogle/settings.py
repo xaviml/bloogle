@@ -100,3 +100,5 @@ SELENIUM_DRIVER_ARGUMENTS=['--headless']  # '--headless' if using chrome instead
 DOWNLOADER_MIDDLEWARES = {
     'scrapy_selenium.SeleniumMiddleware': 800
 }
+
+COOKIES_ENABLED = False

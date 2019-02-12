@@ -33,7 +33,7 @@ class BaseSpider(scrapy.Spider, abc.ABC):
             time.sleep(self.get_timer())
             body = driver.page_source
         else:
-            body = response.body
+            body = response.body.decode("utf-8")
         body_selector = scrapy.selector.Selector(text=body)
 
         if self.is_relevant(url, body_selector):

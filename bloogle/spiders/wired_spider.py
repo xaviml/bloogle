@@ -1,22 +1,16 @@
-import scrapy
 from .base_spider import BaseSpider
 
-class MediumSpider(BaseSpider):
-    name = 'wired'
+class WiredSpider(BaseSpider):
+    name = "wired"
 
     def get_initial_url(self):
-        return ['https://www.wired.com/story/monkeys-with-superpower-eyes-could-help-cure-color-blindness/',
-        'https://www.wired.com/story/airbnb-hotel-hybrids-more-homey-comfort-less-risk/',
-        'https://www.wired.com/story/amazon-aurora-self-driving-roundup/',
-        'https://www.wired.com/story/government-shutdown-cybersecurity-recovery/'
-        ]
+        return ['https://www.wired.com/author/wired-staff/page/1/',
+                'https://www.wired.com/author/wired-staff/page/689/']
 
     def get_next_links(self):
-        return ['ul.we-recommend-component__items a[href*="/story/"]',
-                'div.sponsored-stories-component ul.sponsored-stories-component__items a.recommendation-item-component__link',
-                'ul.paywall a[href]',
-                'div.wrapper-cards li.card-component__description a[href]',
-                'a[href^="https://www.wired.com/story/"]']
+        return ['li.archive-item-component a.archive-item-component__link',
+                'a[href^="https://www.wired.com/story/"]',
+                'li.pagination-component__caret--right > a[href]'] 
 
     def get_file_name(self, url):
         return url.split("/")[-2]
@@ -25,10 +19,15 @@ class MediumSpider(BaseSpider):
         return "https://www.wired.com"
         
     def is_relevant(self, url, body_selector):
-        return True
+        if not url.startswith(self.get_domain()):
+            return False
+        if url.startswith('https://www.wired.com/story/'):
+            return True
+        title = body_selector.css('header > h1')
+        return len(title) == 2
 
     def is_dynamic(self):
-        return True
+        return False
 
     def get_timer(self):
-        return 3
+        return 0
