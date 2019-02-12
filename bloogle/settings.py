@@ -91,8 +91,10 @@ ROBOTSTXT_OBEY = True
 
 from shutil import which
 
+WINDOWS_CHROME_DRIVER = which('C:\\Windows\\chromedriver.exe')
+
 SELENIUM_DRIVER_NAME = 'chrome'
-SELENIUM_DRIVER_EXECUTABLE_PATH = which('chromedriver')
+SELENIUM_DRIVER_EXECUTABLE_PATH = which('chromedriver') if WINDOWS_CHROME_DRIVER is None else WINDOWS_CHROME_DRIVER
 SELENIUM_DRIVER_ARGUMENTS=['--headless']  # '--headless' if using chrome instead of firefox
 
 DOWNLOADER_MIDDLEWARES = {
