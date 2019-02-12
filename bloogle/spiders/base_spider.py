@@ -7,6 +7,20 @@ import time
 from scrapy_selenium import SeleniumRequest
 import os
 
+# to get last-modified date we can:
+# -get last-modified response header, it will work if it's dinamic
+# -document.lastModified, it should work on static webside
+#     document.lastModified
+#     "02/12/2019 18:23:43"
+# -query google with:
+#     https://www.google.com/search?q=inurl:myWebsite&as_qdr=y15
+# 
+#     and if we get any results, try to get the date:
+# 
+#     $('.f').textContent.replace('-','').trim()
+#     "2 days ago"
+
+
 class BaseSpider(scrapy.Spider, abc.ABC):
 
     def start_requests(self):
