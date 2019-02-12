@@ -48,12 +48,13 @@ class BaseSpider(scrapy.Spider, abc.ABC):
         
         # Get links from the web page and request again
         css_links = self.get_next_links()
+        css_function = response.css if not self.is_dynamic() else driver.find_elements_by_css_selector
         for css_link in css_links:
-            next_pages = driver.find_elements_by_css_selector(css_link)
+            next_pages = css_function(css_link)
             if next_pages is not None:
                 for next_page in next_pages:
                     # In case the link is relative, the domain will be added
-                    url = next_page.get_attribute('href')
+                    url = next_page.attrib['href'] if not self.is_dynamic() else next_page.get_attribute('href')
                     if url.startswith('/'):
                         url = self.get_domain() + url
                     yield self.getRequest(url)
