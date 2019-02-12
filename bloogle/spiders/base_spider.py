@@ -36,7 +36,7 @@ class BaseSpider(scrapy.Spider, abc.ABC):
             body = response.body.decode("utf-8")
         body_selector = scrapy.selector.Selector(text=body)
 
-        if not self.allow_leaving_domain() and url.startswith(self.get_domain()):
+        if self.allow_leaving_domain() and not url.startswith(self.get_domain()):
             return
 
         if self.is_relevant(url, body_selector):
