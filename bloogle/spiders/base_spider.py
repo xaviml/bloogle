@@ -23,10 +23,14 @@ import os
 
 class BaseSpider(scrapy.Spider, abc.ABC):
 
+    def __init__(self, path='.'):
+        self.path = path
+        super(BaseSpider, self).__init__()
+
     def start_requests(self):
         # Creating the directory for the crawler
-        self.output_dir = os.path.join('output', self.name, 'page', '')
-        self.links_file_path = os.path.join('output', self.name, 'links.txt')
+        self.output_dir = os.path.join(self.path, self.name, 'page', '')
+        self.links_file_path = os.path.join(self.path, self.name, 'links.txt')
         os.makedirs(self.output_dir, exist_ok=True)
 
         urls = self.get_initial_url()
