@@ -47,7 +47,6 @@ class BaseSpider(scrapy.Spider, abc.ABC):
             time.sleep(self.get_timer())
             body = driver.page_source
         else:
-            time.sleep(self.get_timer())
             body = response.body.decode("utf-8")
         body_selector = scrapy.selector.Selector(text=body)
 
