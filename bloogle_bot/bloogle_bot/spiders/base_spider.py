@@ -23,7 +23,7 @@ import os
 
 class BaseSpider(scrapy.Spider, abc.ABC):
 
-    def __init__(self, path='output'):
+    def __init__(self, path='data'):
         self.path = path
         self.crawled_pages = 0
         super(BaseSpider, self).__init__()
@@ -42,7 +42,7 @@ class BaseSpider(scrapy.Spider, abc.ABC):
         if self.is_dynamic():
             return SeleniumRequest(url=url, callback=self.parse)
         else: 
-            return Request(url=url, callback=self.parse)
+            return Request(url=url, meta={'dont_merge_cookies': True}, callback=self.parse)
 
     def parse(self, response):
         url = response.url
