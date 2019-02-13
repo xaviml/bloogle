@@ -25,8 +25,8 @@ class BaseSpider(scrapy.Spider, abc.ABC):
 
     def start_requests(self):
         # Creating the directory for the crawler
-        path = os.path.join('output', '{}', '')
-        self.output_dir = path.format(self.name)
+        self.output_dir = os.path.join('output', self.name, 'page', '')
+        self.links_file_path = os.path.join('output', self.name, 'links.txt')
         os.makedirs(self.output_dir, exist_ok=True)
 
         urls = self.get_initial_url()
@@ -53,7 +53,24 @@ class BaseSpider(scrapy.Spider, abc.ABC):
 
         if self.allow_leaving_domain() and not url.startswith(self.get_domain()):
             return
-
+        
+        # Get links from the web page and request again
+        links = []
+        css_links = self.get_next_links()
+        css_function = response.css if not self.is_dynamic() else driver.find_elements_by_css_selector
+        for css_link in css_links:
+            next_pages = css_function(css_link)
+            if next_pages is not None:
+                for next_page in next_pages:
+                    # In case the link is relative, the domain will be added
+                    next_url = next_page.attrib['href'] if not self.is_dynamic() else next_page.get_attribute('href')
+                    if next_url.startswith('/'):
+                        next_url = self.get_domain() + next_url
+                    next_url = next_url.split('?')[0]
+                    links.append(next_url)
+                    yield self.getRequest(next_url)
+        
+        links = list(set(links))
         if self.is_relevant(url, body_selector):
             file_name = self.get_file_name(response.url)
             # We need to think how we will name the files
@@ -63,19 +80,12 @@ class BaseSpider(scrapy.Spider, abc.ABC):
             with open(filename, 'w', encoding="utf-8") as f:
                 f.write(body)
             self.log('Saved file %s' % filename)
-        
-        # Get links from the web page and request again
-        css_links = self.get_next_links()
-        css_function = response.css if not self.is_dynamic() else driver.find_elements_by_css_selector
-        for css_link in css_links:
-            next_pages = css_function(css_link)
-            if next_pages is not None:
-                for next_page in next_pages:
-                    # In case the link is relative, the domain will be added
-                    url = next_page.attrib['href'] if not self.is_dynamic() else next_page.get_attribute('href')
-                    if url.startswith('/'):
-                        url = self.get_domain() + url
-                    yield self.getRequest(url)
+
+            # file1 lastmodified main-url url1 url2 url3
+            fileInfo = file_name + '\t' + url + '\t' + '\t'.join(links) + '\n'
+            
+            with open(self.links_file_path, 'a', encoding="utf-8") as f:
+                f.write(fileInfo)
 
     @abc.abstractmethod
     def get_initial_url(self):
