@@ -26,7 +26,7 @@ This is an abstract class that force you to implement the following methods:
 * *is_dynamic*: It returns a boolean indicating whether the page is dynamic or not.
 * *allow_leaving_domain*: It returns a boolean indicating whether the crawler is allowed to leave the domain or not
 * *get_timer*: Wait time in case of using selenium (is_dynamic = True)
-* *get_min_crawled_pages_threshold*: It should return the minimum pages to be crawled (Default: 10000)
+* *get_max_pages_to_crawled*: It should return the maximum pages to be crawled (Default: 10000)
 
  ### Example
 ```python

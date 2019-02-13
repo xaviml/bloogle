@@ -15,9 +15,6 @@ class SteemitSpider(BaseSpider):
             'a[href^="/"]'
         ]
 
-    def get_file_name(self, url):
-        return url.split("/")[-1].split("?")[0]
-
     def get_domain(self):
         return "https://steemit.com"
 

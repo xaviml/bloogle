@@ -45,6 +45,8 @@ class BaseSpider(scrapy.Spider, abc.ABC):
             return Request(url=url, meta={'dont_merge_cookies': True}, callback=self.parse)
 
     def parse(self, response):
+        if(self.crawled_pages >= self.get_max_pages_to_crawled()):
+            return
         url = response.url
         if self.is_dynamic():
             driver = response.request.meta['driver']
@@ -75,7 +77,7 @@ class BaseSpider(scrapy.Spider, abc.ABC):
         
         links = list(set(links))
         if self.is_relevant(url, body_selector):
-            file_name = self.get_file_name(response.url)
+            file_name = self.name + '_' + str(self.crawled_pages)
             # We need to think how we will name the files
             filename = self.output_dir + file_name
             
@@ -90,7 +92,7 @@ class BaseSpider(scrapy.Spider, abc.ABC):
             with open(self.links_file_path, 'a', encoding="utf-8") as f:
                 f.write(fileInfo)
             self.crawled_pages += 1
-            if(self.crawled_pages >= self.get_min_crawled_pages_threshold()):
+            if(self.crawled_pages >= self.get_max_pages_to_crawled()):
                 raise scrapy.exceptions.CloseSpider('Reached maximum pages: {}'.format(self.crawled_pages))
 
         for link in links:
@@ -107,16 +109,6 @@ class BaseSpider(scrapy.Spider, abc.ABC):
     def get_next_links(self):
         '''
         Returns a list of css query for the element <a> with href attribute
-        '''
-        pass
-
-    @abc.abstractmethod
-    def get_file_name(self, url):
-        '''
-        Parameters:
-            * url: URL request
-        Returns:
-            * The name of the file for that specific URL
         '''
         pass
 
@@ -160,7 +152,7 @@ class BaseSpider(scrapy.Spider, abc.ABC):
         '''
         pass
 
-    def get_min_crawled_pages_threshold(self):
+    def get_max_pages_to_crawled(self):
         '''
         Returns:
             * The minimum pages to be crawled
