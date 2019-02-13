@@ -23,8 +23,9 @@ import os
 
 class BaseSpider(scrapy.Spider, abc.ABC):
 
-    def __init__(self, path='.'):
+    def __init__(self, path='output'):
         self.path = path
+        self.crawled_pages = 0
         super(BaseSpider, self).__init__()
 
     def start_requests(self):
@@ -71,7 +72,6 @@ class BaseSpider(scrapy.Spider, abc.ABC):
                         next_url = self.get_domain() + next_url
                     next_url = next_url.split('?')[0]
                     links.append(next_url)
-                    yield self.getRequest(next_url)
         
         links = list(set(links))
         if self.is_relevant(url, body_selector):
@@ -89,6 +89,12 @@ class BaseSpider(scrapy.Spider, abc.ABC):
             
             with open(self.links_file_path, 'a', encoding="utf-8") as f:
                 f.write(fileInfo)
+            self.crawled_pages += 1
+            if(self.crawled_pages >= self.get_min_crawled_pages_threshold()):
+                raise scrapy.exceptions.CloseSpider('Reached maximum pages: {}'.format(self.crawled_pages))
+
+        for link in links:
+            yield self.getRequest(link)
 
     @abc.abstractmethod
     def get_initial_url(self):
@@ -153,3 +159,10 @@ class BaseSpider(scrapy.Spider, abc.ABC):
             * Timer
         '''
         pass
+
+    def get_min_crawled_pages_threshold(self):
+        '''
+        Returns:
+            * The minimum pages to be crawled
+        '''
+        return 10000

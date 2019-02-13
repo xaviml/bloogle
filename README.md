@@ -1,9 +1,41 @@
 # bloogle: A Blog Search Engine
 
+## Set up
+To run this, you need python >= 3.6.x and install the requirements:
+```
+pip install -r requirements.txt
+```
+
+### Linux
+As an additional step, you need to install chromedriver, for linux follow these commands:
+```
+wget https://chromedriver.storage.googleapis.com/2.41/chromedriver_linux64.zip
+unzip chromedriver_linux64.zip
+sudo mv chromedriver /usr/bin/chromedriver
+sudo chown root:root /usr/bin/chromedriver
+sudo chmod +x /usr/bin/chromedriver
+```
+
+### Windows
+As an additional step, you need to install chromedriver, for windows follow these steps:
+* Download: https://chromedriver.storage.googleapis.com/2.41/chromedriver_win32.zip
+* Place *chromedriver.exe* in "C:\\Windows\\chromedriver.exe"
+
+## Run
+```
+scrapy crawl my_spider
+```
+
+This will start the crawler 'my_spider'. In case the spider extends BaseSpider, then it will create an output folder with the name of the spider and it will contain all the html files.
+
+## Debug
+In case of using VSCode, you can run *run.py* and change the crawler you want to execute.
+
 ## How to create a Spider
 There are two options to create an spider:
 * Extending from scrapy.Spider and implementing the methods that scrapy.Spider needs
 * Extending BaseSpider
+* Extending SimpleBaseSpider
 
 ## BaseSpider
 This is an abstract class that force you to implement the following methods:
@@ -15,8 +47,9 @@ This is an abstract class that force you to implement the following methods:
 * *is_dynamic*: It returns a boolean indicating whether the page is dynamic or not.
 * *allow_leaving_domain*: It returns a boolean indicating whether the crawler is allowed to leave the domain or not
 * *get_timer*: Wait time in case of using selenium (is_dynamic = True)
+* *get_min_crawled_pages_threshold*: It should return the minimum pages to be crawled (Default: 10000)
 
- ## Example
+ ### Example
 ```python
 import scrapy
 from .base_spider import BaseSpider
@@ -51,33 +84,17 @@ class MySpider(BaseSpider):
         return 0
 ```
 
-## Set up
-To run this, you need python >= 3.6.x and install the requirements:
-```
-pip install -r requirements.txt
-```
+## SimpleBaseSpider
+This is a much reduced version of BaseSpider. It has most of the methods already implemented and assumes that the webside has an script with type 'application/ld+json' (Google standards). It will crawled the page from the main page and it will only store those files that has '"@type":"NewsArticle"' in the script with type 'application/ld+json'. If needed, other methods can be overwritten.
 
-### Linux
-As an additional step, you need to install chromedriver, for linux follow these commands:
-```
-wget https://chromedriver.storage.googleapis.com/2.41/chromedriver_linux64.zip
-unzip chromedriver_linux64.zip
-sudo mv chromedriver /usr/bin/chromedriver
-sudo chown root:root /usr/bin/chromedriver
-sudo chmod +x /usr/bin/chromedriver
-```
+### Example
+```python
+import scrapy
+from .simple_base_spider import SimpleBaseSpider
 
-### Windows
-As an additional step, you need to install chromedriver, for windows follow these steps:
-* Download: https://chromedriver.storage.googleapis.com/2.41/chromedriver_win32.zip
-* Place *chromedriver.exe* in "C:\\Windows\\chromedriver.exe"
+class MySpider(SimpleBaseSpider):
+    name = 'my_spider'
 
-## Run
+    def get_domain(self):
+        return "https://myspider.com"
 ```
-scrapy crawl my_spider
-```
-
-This will start the crawler 'my_spider'. In case the spider extends BaseSpider, then it will create an output folder with the name of the spider and it will contain all the html files.
-
-## Debug
-In case of using VSCode, you can run *run.py* and change the crawler you want to execute.
