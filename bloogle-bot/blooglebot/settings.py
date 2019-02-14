@@ -21,12 +21,12 @@ NEWSPIDER_MODULE = 'blooglebot.spiders'
 # Obey robots.txt rules
 ROBOTSTXT_OBEY = True
 
-USER_AGENT = 'blooglebot' # TODO add email
+USER_AGENT = 'blooglebot (xavi.morenoliceras1@student.uva.nl)'
 
 # Politness
 ROBOTSTXT_OBEY = True # Default
 DOWNLOAD_DELAY = 1.0 # In seconds
-RANDOMIZE_DOWNLOAD_DELAY = True # Default
+RANDOMIZE_DOWNLOAD_DELAY = False # Default
 CONCURRENT_REQUESTS_PER_DOMAIN = 8 # Default
 CONCURRENT_REQUESTS = 16 # Default
 AUTOTHROTTLE_ENABLED = True # Default
