@@ -1,5 +1,6 @@
 import scrapy
 from scrapy.crawler import CrawlerProcess
+from scrapy.utils.project import get_project_settings
 from blooglebot.spiders.wired_spider import WiredSpider
 from blooglebot.spiders.medium_spider import MediumSpider
 from blooglebot.spiders.steemit_spider import SteemitSpider
@@ -16,7 +17,7 @@ parser.add_option('-o', '--output',
 
 options, args = parser.parse_args()
 
-process = CrawlerProcess()
+process = CrawlerProcess(get_project_settings())
 process.crawl(WiredSpider, options.output)
 process.crawl(MediumSpider, options.output)
 process.crawl(SteemitSpider, options.output)
