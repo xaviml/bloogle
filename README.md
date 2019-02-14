@@ -1,4 +1,4 @@
-# bloogle: A Blog Search Engine
+# bloogle: A content blog search engine
 
 ## Set up
 To run this, you need python >= 3.6.x and install the requirements:
