@@ -1,11 +1,11 @@
 import scrapy
 from scrapy.crawler import CrawlerProcess
-from bloogle_bot.spiders.wired_spider import WiredSpider
-from bloogle_bot.spiders.medium_spider import MediumSpider
-from bloogle_bot.spiders.steemit_spider import SteemitSpider
-from bloogle_bot.spiders.gizmodo_spider import GizmodoSpider
-from bloogle_bot.spiders.theverge_spider import TheVergeSpider
-from bloogle_bot.spiders.techcrunch_spider import TechCrunchSpider
+from blooglebot.spiders.wired_spider import WiredSpider
+from blooglebot.spiders.medium_spider import MediumSpider
+from blooglebot.spiders.steemit_spider import SteemitSpider
+from blooglebot.spiders.gizmodo_spider import GizmodoSpider
+from blooglebot.spiders.theverge_spider import TheVergeSpider
+from blooglebot.spiders.techcrunch_spider import TechCrunchSpider
 import optparse
 
 parser = optparse.OptionParser()

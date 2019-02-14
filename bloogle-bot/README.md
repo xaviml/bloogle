@@ -1,4 +1,4 @@
-# bloogle_bot: Module that crawls blog sites
+# bloogle-bot: Module that crawls blog sites
 
 ## Run
 ```
