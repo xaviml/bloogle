@@ -25,7 +25,7 @@ USER_AGENT = 'blooglebot' # TODO add email
 
 # Politness
 ROBOTSTXT_OBEY = True # Default
-DOWNLOAD_DELAY = 1.0 # In seconds
+DOWNLOAD_DELAY = 0 # In seconds
 RANDOMIZE_DOWNLOAD_DELAY = True # Default
 CONCURRENT_REQUESTS_PER_DOMAIN = 8 # Default
 CONCURRENT_REQUESTS = 16 # Default

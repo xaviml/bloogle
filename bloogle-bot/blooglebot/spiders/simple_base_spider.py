@@ -16,9 +16,12 @@ class SimpleBaseSpider(BaseSpider):
 
     def is_relevant(self, url, body_selector):
         ldjsonList = body_selector.css('script[type="application/ld+json"]')
+        types = ["NewsArticle", "Article"]
         for ldjson in ldjsonList.getall():
-            if '"@type":"NewsArticle"' in ldjson:
-                return True
+            for type in types:
+
+                if '"@type":"'+type+'"' in ldjson.replace(" ", ""):
+                    return True
         return False
         
     def is_dynamic(self):

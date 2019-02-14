@@ -7,6 +7,7 @@ from blooglebot.spiders.steemit_spider import SteemitSpider
 from blooglebot.spiders.gizmodo_spider import GizmodoSpider
 from blooglebot.spiders.theverge_spider import TheVergeSpider
 from blooglebot.spiders.techcrunch_spider import TechCrunchSpider
+from blooglebot.spiders.buzzfeed_spider import BuzzfeedSpider
 import optparse
 import os
 
@@ -26,4 +27,5 @@ process.crawl(SteemitSpider, options.output)
 process.crawl(GizmodoSpider, options.output)
 process.crawl(TheVergeSpider, options.output)
 process.crawl(TechCrunchSpider, options.output)
+process.crawl(BuzzfeedSpider, options.output)
 process.start() # the script will block here until all crawling jobs are finished
