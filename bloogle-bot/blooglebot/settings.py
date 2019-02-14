@@ -11,8 +11,8 @@
 
 BOT_NAME = 'blooglebot'
 
-SPIDER_MODULES = ['bloogle.spiders']
-NEWSPIDER_MODULE = 'bloogle.spiders'
+SPIDER_MODULES = ['blooglebot.spiders']
+NEWSPIDER_MODULE = 'blooglebot.spiders'
 
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
@@ -20,6 +20,16 @@ NEWSPIDER_MODULE = 'bloogle.spiders'
 
 # Obey robots.txt rules
 ROBOTSTXT_OBEY = True
+
+USER_AGENT = 'blooglebot' # TODO add email
+
+# Politness
+ROBOTSTXT_OBEY = True # Default
+DOWNLOAD_DELAY = 1.0 # In seconds
+RANDOMIZE_DOWNLOAD_DELAY = True # Default
+CONCURRENT_REQUESTS_PER_DOMAIN = 8 # Default
+CONCURRENT_REQUESTS = 16 # Default
+AUTOTHROTTLE_ENABLED = True # Default
 
 # Configure maximum concurrent requests performed by Scrapy (default: 16)
 #CONCURRENT_REQUESTS = 32

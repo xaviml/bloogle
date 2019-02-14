@@ -8,6 +8,7 @@ from blooglebot.spiders.gizmodo_spider import GizmodoSpider
 from blooglebot.spiders.theverge_spider import TheVergeSpider
 from blooglebot.spiders.techcrunch_spider import TechCrunchSpider
 import optparse
+import os
 
 parser = optparse.OptionParser()
 
@@ -17,6 +18,7 @@ parser.add_option('-o', '--output',
 
 options, args = parser.parse_args()
 
+os.environ['SCRAPY_SETTINGS_MODULE'] = 'blooglebot.settings'
 process = CrawlerProcess(get_project_settings())
 process.crawl(WiredSpider, options.output)
 process.crawl(MediumSpider, options.output)
