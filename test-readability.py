@@ -7,8 +7,8 @@ import webbrowser
 # Once you run this, it will open two tabs on the browser showing the short version and the real version.
 
 data_path = 'data/'
-page = 'gizmodo'
-number = '1432'
+page = 'medium'
+number = '5763'
 filename = page + '_' + number
 
 url = ''
