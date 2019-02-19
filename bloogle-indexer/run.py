@@ -29,6 +29,7 @@ connector = ElasticsearchConnector()
 # for loop through htmls file, calling the parser and elasticsearch
 path = os.path.join(options.input, '*')
 folders = glob.glob(path)
+i = 1
 for folder in folders:
     linkspath =  os.path.join(folder, 'links.txt')
     path = os.path.join(folder, 'page', '*')
@@ -44,3 +45,6 @@ for folder in folders:
                 url = files_info[filename]['url'],
                 blog = filepath.split(os.path.sep)[-3]
             )
+        print('Created files: {}'.format(i), end='\r')
+        i+=1
+

@@ -61,7 +61,7 @@ class ElasticsearchConnector():
             'url': url,
             'blog': blog
         }
-        self.es.index(index=INDEX, doc_type=_TYPE, body=body)
+        self.es.index(index=INDEX, doc_type=_TYPE, id=url, body=body)
 
     # Create methods to store data
     # Guidelines:
