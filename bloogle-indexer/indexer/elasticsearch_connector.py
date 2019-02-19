@@ -19,31 +19,71 @@ class ElasticsearchConnector():
         settings = {
             "settings": {
                 "analysis": {
+                    "filter": {
+                        "english_stop": {
+                          "type": "stop",
+                          "stopwords": "_english_"
+                        },
+                        "english_stemmer": {
+                          "type": "stemmer",
+                          "language": "english" 
+                        },
+                        "english_possessive_stemmer": {
+                          "type": "stemmer",
+                          "language": "possessive_english" 
+                        },
+                        "autocomplete_filter": {
+                            "type": "edge_ngram",
+                            "min_gram": 1,
+                            "max_gram": 20
+                        }
+                    },    
                     "analyzer": {
                         "english_exact": {
                             "tokenizer": "standard",
                             "filter": [
                                 "lowercase"
                             ]
+                        },
+                        "english": {
+                            "tokenizer": "standard",
+                            "filter": [
+                              "english_possessive_stemmer",
+                              "lowercase",
+                              "english_stop",
+                              "english_stemmer"
+                            ]
+                        },
+                        "autocomplete": { 
+                            "type": "custom",
+                            "tokenizer": "standard",
+                            "filter": [
+                              "lowercase",
+                              "autocomplete_filter"
+                            ]
                         }
-                      }
                     }
+                },
             },
             "mappings": {
                 _TYPE: {
                     "dynamic": "strict",
                     "properties": {
                         "title": {
-                            "type": "text"
+                            "type": "text",
+                            "analyzer": "english"
                         },
                         "content": {
-                            "type": "text"
+                            "type": "text",
+                            "analyzer": "english"
                         },
                         "url": {
-                            "type": "text"
+                            "type": "text",
+                            "index": "not_analyzed"
                         },
                         "blog": {
-                            "type": "text"
+                            "type": "text",
+                            "analyzer": "english"
                         }
                     }
                 }
@@ -51,8 +91,8 @@ class ElasticsearchConnector():
         }
 
         if not self.es.indices.exists(INDEX):
-            settings["number_of_shards"] = 1
-            settings["number_of_replicas"] = 0
+            settings["settings"]["number_of_shards"] = 1
+            settings["settings"]["number_of_replicas"] = 0
             self.es.indices.create(index=INDEX, body=settings)
             print('Index created')
         else:
