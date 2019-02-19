@@ -14,7 +14,7 @@ options, args = parser.parse_args()
 
 def read_links(filepath):
     output = {}
-    with open(filepath) as f:
+    with open(filepath, encoding="utf-8") as f:
         lines = f.readlines()
         for line in lines:
             l = line.split('\t')
@@ -36,7 +36,7 @@ for folder in folders:
     filepaths = glob.glob(path)
     files_info = read_links(linkspath)
     for filepath in filepaths:
-        with open(filepath, 'r') as f:
+        with open(filepath, 'r', encoding="utf-8") as f:
             filename = filepath.split(os.path.sep)[-1]
             parsed_content = HTMLparser(f.read())
             connector.store(
