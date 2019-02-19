@@ -115,6 +115,11 @@ class ElasticsearchConnector():
         }
         self.es.index(index=INDEX, doc_type=_TYPE, id=url, body=body)
 
+    # search_object = {'query': {'match': {'body': 'international'}}}
+    # search(json.dumps(search_object))
+    def search(self, search):
+        return self.es.search(index=INDEX, body=search)
+        
     # Create methods to store data
     # Guidelines:
     #   * index: 'bloogle'
