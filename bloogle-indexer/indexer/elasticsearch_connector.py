@@ -7,7 +7,7 @@ _TYPE = 'post'
 class ElasticsearchConnector():
 
     def __init__(self):
-        self.es = Elasticsearch()
+        self.es = Elasticsearch([{'host': 'localhost', 'port': 9200}])
         if self.es.ping():
             print('Yay Connected')
         else:
@@ -18,8 +18,16 @@ class ElasticsearchConnector():
     def __configure__(self):
         settings = {
             "settings": {
-                "number_of_shards": 1,
-                "number_of_replicas": 0
+                "analysis": {
+                    "analyzer": {
+                        "english_exact": {
+                            "tokenizer": "standard",
+                            "filter": [
+                                "lowercase"
+                            ]
+                        }
+                      }
+                    }
             },
             "mappings": {
                 _TYPE: {
@@ -43,10 +51,14 @@ class ElasticsearchConnector():
         }
 
         if not self.es.indices.exists(INDEX):
+            settings["number_of_shards"] = 1
+            settings["number_of_replicas"] = 0
             self.es.indices.create(index=INDEX, body=settings)
             print('Index created')
         else:
+            self.es.indices.close(index=INDEX)
             self.es.indices.put_settings(body=settings)
+            self.es.indices.open(index=INDEX)
             print('Index updated')
         # Follow this post to configure: https://towardsdatascience.com/getting-started-with-elasticsearch-in-python-c3598e718380
         # ignore 400 cause by IndexAlreadyExistsException when creating an index
