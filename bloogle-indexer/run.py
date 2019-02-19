@@ -6,7 +6,7 @@ import os
 
 parser = optparse.OptionParser()
 
-parser.add_option('-i', '--input', dest="input", help="Input path")
+parser.add_option('-i', '--input', dest="input", help="Input path", required=True)
 
 options, args = parser.parse_args()
 #options.input -> to access the data folder
