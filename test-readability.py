@@ -12,14 +12,14 @@ number = '5763'
 filename = page + '_' + number
 
 url = ''
-with open(data_path + page +'/links.txt') as f:
+with open(data_path + page +'/links.txt',encoding="utf8") as f:
     lines = f.readlines()
     for line in lines:
         l = line.split('\t')
         if l[0] == filename:
             url = l[1]
 
-with open('data/'+ page +'/page/'+ filename) as f:
+with open('data/'+ page +'/page/'+ filename,encoding="utf8") as f:
     doc = Document(f.read())
     result = '<h2>' + doc.short_title() + '</h2><br/>' + doc.summary()
     open_in_browser(result)
