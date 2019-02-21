@@ -55,19 +55,11 @@ def HTMLparser(page, blog):
 
     if article is not None:
         content = (article.get_text(" "))
-        #print(content)
 
 
     return {
         'title': title,
-        #'content': content,
+        'content': content,
         'author': author,
         'date': date
     }
-
-print(HTMLparser(open('C:/Users/Ben/Downloads/data/medium/page/medium_11', encoding="utf8"), 'medium'))
-print(HTMLparser(open('C:/Users/Ben/Downloads/data/steemit/page/steemit_11', encoding="utf8"), 'steemit'))
-print(HTMLparser(open('C:/Users/Ben/Downloads/data/techcrunch/page/techcrunch_11', encoding="utf8"), 'techcrunch'))
-print(HTMLparser(open('C:/Users/Ben/Downloads/data/gizmodo/page/gizmodo_11', encoding="utf8"), 'gizmodo'))
-print(HTMLparser(open('C:/Users/Ben/Downloads/data/wired/page/wired_11', encoding="utf8"), 'wired'))
-print(HTMLparser(open('C:/Users/Ben/Downloads/data/theverge/page/theverge_11', encoding="utf8"), 'theverge'))
