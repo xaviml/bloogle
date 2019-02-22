@@ -3,7 +3,7 @@ from elasticsearch_dsl import Document, Date, Nested, Boolean, \
 
 class Post(Document):
     title = Text(fields={'raw': Keyword()}, analyzer='english')
-    content = Text(analyzer='snowball')
+    content = Text(analyzer='english')
     author = Text(fields={'raw': Keyword()}, analyzer='english')
     datePublished = Date()
     dateModified = Date()
