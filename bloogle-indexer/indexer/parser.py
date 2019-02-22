@@ -5,7 +5,7 @@ from datetime import datetime
 from indexer.post import Post
 import json
 
-def HTMLparser(page, blog):
+def HTMLparser(page, blog, url):
     title = None
     content = None
     author = None
@@ -39,9 +39,11 @@ def HTMLparser(page, blog):
         datePublished = parse(datestring)
 
     return Post(
+        meta={'id':url},
         title= title,
         content= content,
         author= author,
         datePublished= datePublished,
-        dateModified= dateModified
+        dateModified= dateModified,
+        url = url
     )

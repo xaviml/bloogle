@@ -44,8 +44,9 @@ for folder in folders:
     for filepath in filepaths:
         with open(filepath, 'r', encoding="utf-8") as f:
             filename = filepath.split(os.path.sep)[-1]
+            url = files_info[filename]['url']
             blogName = filepath.split(os.path.sep)[-3]
-            post = HTMLparser(f.read(), blogName)
+            post = HTMLparser(f.read(), blogName, url)
             post.save()
         print('Created files: {}'.format(i), end='\r')
         i+=1
