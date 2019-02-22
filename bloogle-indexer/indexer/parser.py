@@ -1,7 +1,8 @@
 from readability import Document
 from bs4 import BeautifulSoup
+from dateutil.parser import parse
 from datetime import datetime
-from .blog_item import BlogItem
+from indexer.post import Post
 import json
 
 def HTMLparser(page, blog):
@@ -27,20 +28,20 @@ def HTMLparser(page, blog):
                 author = application_json_ld['author']['name']
         if 'datePublished' in application_json_ld:
             datestring = application_json_ld['datePublished']
-            datePublished = datetime.strptime(datestring, '%Y-%m-%dT%H:%M:%SZ')
+            datePublished = parse(datestring)
         if 'dateModified' in application_json_ld:
             datestring = application_json_ld['dateModified']
-            dateModified = datetime.strptime(datestring, '%Y-%m-%dT%H:%M:%SZ')
+            dateModified = parse(datestring)
     
     if blog == 'steemit':
         author = soup.find('a',{'class':'ptc'}).get_text().split(" ")[0]
         datestring = soup.find('span',{'class':'updated'})['title'].split()[0]
-        datePublished = datetime.strptime(datestring, '%m/%d/%Y')
+        datePublished = parse(datestring)
 
-    item = BlogItem()
-    item.title = title
-    item.content = content
-    item.author = author
-    item.datePublished = datePublished
-    item.dateModified = dateModified
-    return item
+    return Post(
+        title= title,
+        content= content,
+        author= author,
+        datePublished= datePublished,
+        dateModified= dateModified
+    )
