@@ -7,7 +7,6 @@ class Post(Document):
     author = Text(fields={'raw': Keyword()}, analyzer='english')
     datePublished = Date()
     dateModified = Date()
-    url = Text()
 
     class Index:
         name = 'blog'

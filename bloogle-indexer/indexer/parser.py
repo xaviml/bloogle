@@ -44,6 +44,5 @@ def HTMLparser(page, blog, url):
         content= content,
         author= author,
         datePublished= datePublished,
-        dateModified= dateModified,
-        url = url
+        dateModified= dateModified
     )
