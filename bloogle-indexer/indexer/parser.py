@@ -1,65 +1,46 @@
 from readability import Document
 from bs4 import BeautifulSoup
 from datetime import datetime
+from .blog_item import BlogItem
+import json
 
 def HTMLparser(page, blog):
-    #doc = Document(body)
-    #doc.short_title() -> short title
-    #doc.summary() -> body (clean the html tags)
-    # Maybe extract more attributes apart from title and content
-    title = ''
-    content = ''
-    author = ''
-    date = None
+    title = None
+    content = None
+    author = None
+    datePublished = None
+    dateModified = None
 
-    soup = BeautifulSoup(page)
-
-    if blog == 'medium':
-        article = soup.find('div',{'class':'section-content'})
-        author = soup.find('meta', {'property':'author'})["content"]
-        #datestring = soup.find('meta', {'property':'article:published_time'})["content"].split("T")[0]
-        #date = datetime.strptime(datestring,'%Y-%m-%d')
-
-    elif blog == 'gizmodo':
-        article = soup.find('div',{'class':'post-content'})
-        author = soup.find('meta', {'name':'author'})["content"]
-        datestring = soup.find('time',{'class':'meta__time updated'})['datetime'].split("T")[0]
-        date = datetime.strptime(datestring,'%Y-%m-%d')
-
-    elif blog == 'steemit':
-        article = soup.find('div',{'class':'PostFull__body'})
+    soup = BeautifulSoup(page, 'lxml')
+    doc = Document(page)
+    title = doc.short_title()
+    content = BeautifulSoup(doc.summary(), 'lxml').get_text()
+    try:
+        application_json_ld = json.loads(soup.find('script',{'type':'application/ld+json'}).get_text())
+    except:
+        application_json_ld = None
+    if application_json_ld is not None:
+        if 'author' in application_json_ld:
+            if isinstance(application_json_ld['author'], list):
+                author = application_json_ld['author'][0]['name']
+            else:
+                author = application_json_ld['author']['name']
+        if 'datePublished' in application_json_ld:
+            datestring = application_json_ld['datePublished']
+            datePublished = datetime.strptime(datestring, '%Y-%m-%dT%H:%M:%SZ')
+        if 'dateModified' in application_json_ld:
+            datestring = application_json_ld['dateModified']
+            dateModified = datetime.strptime(datestring, '%Y-%m-%dT%H:%M:%SZ')
+    
+    if blog == 'steemit':
         author = soup.find('a',{'class':'ptc'}).get_text().split(" ")[0]
         datestring = soup.find('span',{'class':'updated'})['title'].split()[0]
-        date = datetime.strptime(datestring, '%m/%d/%Y')
+        datePublished = datetime.strptime(datestring, '%m/%d/%Y')
 
-    elif blog == 'techcrunch':
-        article = soup.find('div',{'class':'article-content'})
-        #author = soup.find('meta', {'name':'sailthru.author'})["content"] #author tag in html but not scraped for some reason
-        datestring = soup.find('meta', {'name':'sailthru.date'})["content"].split()[0]
-        date = datetime.strptime(datestring,'%Y-%m-%d')
-
-    elif blog == 'theverge':
-        article = soup.find('div',{'class':'c-entry-content'})
-        author = soup.find('meta', {'property':'author'})["content"]
-        datestring = soup.find('meta', {'property':'article:published_time'})["content"].split("T")[0]
-        date = datetime.strptime(datestring,'%Y-%m-%d')
-
-
-    elif blog == 'wired':
-        article = soup.find('article')
-        author = soup.find('meta', {'name':'parsely-author'})["content"]
-        datestring = soup.find('meta', {'name':'parsely-pub-date'})["content"].split("T")[0]
-        date = datetime.strptime(datestring,'%Y-%m-%d')
-
-    title = soup.title.string
-
-    if article is not None:
-        content = (article.get_text(" "))
-
-
-    return {
-        'title': title,
-        'content': content,
-        'author': author,
-        'date': date
-    }
+    item = BlogItem()
+    item.title = title
+    item.content = content
+    item.author = author
+    item.datePublished = datePublished
+    item.dateModified = dateModified
+    return item

@@ -2,4 +2,5 @@ class BlogItem():
     title = None
     content = None
     author = None
-    date = None
+    datePublished = None
+    dateModified = None
