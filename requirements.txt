@@ -2,4 +2,5 @@ selenium==3.141.0
 Scrapy==1.5.2
 scrapy-selenium==0.0.7
 elasticsearch==6.3.1
-readability-lxml
+readability-lxml==0.7
+elasticsearch_dsl==6.3.1
