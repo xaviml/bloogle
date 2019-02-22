@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
-import { Client } from 'elasticsearch';
+import { Client } from 'elasticsearch-browser';
 import { Post } from '../model/post';
-
+import { Observable } from 'rxjs';
+import { from } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -31,19 +32,19 @@ export class ElasticsearchService {
   constructor() {
     this.client = new Client({
       host: 'http://localhost:9200',
-      log: 'trace'
+      log: 'trace',
     });
   }
 
 
 
-  search(query): Post[] {
-    const postArr: Post[] = this.client.search({
+  search(query): Observable<Object[]> {
+    const p: Promise<any> = this.client.search({
       index: this._index,
       type: this._type,
-      body: this.query,
+      body: this.query(query),
       filterPath: ['hits.hits._source']
     });
-    return postArr;
+    return from(p);
   }
 }

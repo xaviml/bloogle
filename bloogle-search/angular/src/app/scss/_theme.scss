@@ -1,0 +1,70 @@
+// https://material.angular.io/guide/theming
+// http://mcg.mbitson.com/#!?tcaccent=%2361ad26&themename=mcgtheme
+
+/* For use in src/lib/core/theming/_palette.scss */
+$md-tcprimary: (
+    50 : #e0f0f7,
+    100 : #b3d9ec,
+    200 : #80bfdf,
+    300 : #4da5d2,
+    400 : #2692c9,
+    500 : #007fbf,
+    600 : #0077b9,
+    700 : #006cb1,
+    800 : #0062a9,
+    900 : #004f9b,
+    A100 : #c6dfff,
+    A200 : #93c3ff,
+    A400 : #60a6ff,
+    A700 : #4798ff,
+    contrast: (
+        50 : #000000,
+        100 : #000000,
+        200 : #000000,
+        300 : #000000,
+        400 : #ffffff,
+        500 : #ffffff,
+        600 : #ffffff,
+        700 : #ffffff,
+        800 : #ffffff,
+        900 : #ffffff,
+        A100 : #000000,
+        A200 : #000000,
+        A400 : #000000,
+        A700 : #000000,
+    )
+);
+
+/* For use in src/lib/core/theming/_palette.scss */
+$md-tcaccent: (
+  50 : #ecf5e5,
+  100 : #d0e6be,
+  200 : #b0d693,
+  300 : #90c667,
+  400 : #79b947,
+  500 : #61ad26,
+  600 : #59a622,
+  700 : #4f9c1c,
+  800 : #459317,
+  900 : #33830d,
+  A100 : #c9ffb4,
+  A200 : #a4ff81,
+  A400 : #7fff4e,
+  A700 : #6dff35,
+  contrast: (
+      50 : #000000,
+      100 : #000000,
+      200 : #000000,
+      300 : #000000,
+      400 : #000000,
+      500 : #ffffff,
+      600 : #ffffff,
+      700 : #ffffff,
+      800 : #ffffff,
+      900 : #ffffff,
+      A100 : #000000,
+      A200 : #000000,
+      A400 : #000000,
+      A700 : #000000,
+  )
+);
