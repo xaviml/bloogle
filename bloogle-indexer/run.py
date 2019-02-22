@@ -1,12 +1,13 @@
 import optparse
-from indexer.elasticsearch_connector import ElasticsearchConnector
+from elasticsearch_dsl import connections
 from indexer.parser import HTMLparser
+from indexer.post import Post
 import glob
 import os
 
 parser = optparse.OptionParser()
 
-parser.add_option('-i', '--input', dest="input", help="Input path", required=True)
+parser.add_option('-i', '--input', dest="input", help="Input path")
 
 options, args = parser.parse_args()
 #options.input -> to access the data folder
@@ -24,7 +25,12 @@ def read_links(filepath):
             }
     return output  
 
-connector = ElasticsearchConnector()
+def inits():
+    #Post.init()
+    pass
+
+connections.create_connection(hosts=['localhost'], port=9200)
+inits()
 
 # for loop through htmls file, calling the parser and elasticsearch
 path = os.path.join(options.input, '*')
@@ -38,13 +44,9 @@ for folder in folders:
     for filepath in filepaths:
         with open(filepath, 'r', encoding="utf-8") as f:
             filename = filepath.split(os.path.sep)[-1]
-            parsed_content = HTMLparser(f.read())
-            connector.store(
-                title = parsed_content['title'],
-                content = parsed_content['content'],
-                url = files_info[filename]['url'],
-                blog = filepath.split(os.path.sep)[-3]
-            )
+            blogName = filepath.split(os.path.sep)[-3]
+            post = HTMLparser(f.read(), blogName)
+            post.save()
         print('Created files: {}'.format(i), end='\r')
         i+=1
 

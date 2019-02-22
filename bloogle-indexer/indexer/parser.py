@@ -1,6 +1,7 @@
 from readability import Document
 from bs4 import BeautifulSoup
 from datetime import datetime
+from indexer.post import Post
 
 def HTMLparser(page, blog):
     #doc = Document(body)
@@ -10,6 +11,7 @@ def HTMLparser(page, blog):
     title = ''
     content = ''
     author = ''
+    article = None
     date = None
 
     soup = BeautifulSoup(page)
@@ -56,10 +58,11 @@ def HTMLparser(page, blog):
     if article is not None:
         content = (article.get_text(" "))
 
-
-    return {
-        'title': title,
-        'content': content,
-        'author': author,
-        'date': date
-    }
+    
+    return Post(
+        title= title,
+        content= content,
+        author= author,
+        datePublished= date,
+        dateModified= date
+    )
