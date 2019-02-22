@@ -49,10 +49,12 @@ const modules = [
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './components/app/app.component';
+import { SearchInputComponent } from './components/search-input/search-input.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    SearchInputComponent
   ],
   imports: [
     BrowserModule,
