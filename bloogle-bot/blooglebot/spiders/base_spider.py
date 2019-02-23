@@ -169,4 +169,4 @@ class BaseSpider(scrapy.Spider, abc.ABC):
             # If the percentage of crawled pages is below 10% and we have more than 99 explored pages, we stop
             return self.explored_pages > 99 and self.crawled_pages * 100 / self.explored_pages < 10
         else:
-            return self.crawled_pages >= 5
+            return self.crawled_pages >= 10000
