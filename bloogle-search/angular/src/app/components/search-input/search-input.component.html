@@ -1,0 +1,27 @@
+<form>
+  <div class="row justify-content-center">
+    <div class="col-xs-12">
+      <mat-form-field>
+        <input matInput [(ngModel)]="query" name="query">
+      </mat-form-field>
+      <button mat-button color="primary" (click)="search()">Search</button>
+    </div>
+  </div>
+  <div class="row">
+    <mat-card class="col-xs-12 m-4" *ngFor="let post of posts">
+      <mat-card-header>
+        <mat-card-title>{{post.title}}</mat-card-title>
+        <mat-card-subtitle>{{post.author}}</mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content>
+        <p>
+          {{post.content}}
+        </p>
+      </mat-card-content>
+      <mat-card-actions>
+        <a mat-button [href]="post.url" target="_blank">View</a>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+
+</form>

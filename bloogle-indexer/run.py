@@ -37,14 +37,16 @@ files_info = read_links(path)
 # for loop through htmls file, calling the parser and elasticsearch
 path = os.path.join(options.input, 'pages', '*')
 filepaths = glob.glob(path)
-i = 1
+saved_documents = 0
+itered_documents = 0
 for filepath in filepaths:
     with open(filepath, 'r', encoding="utf-8") as f:
         filename = filepath.split(os.path.sep)[-1]
         blogName = filename.split('_')[0]
-        post = HTMLparser(f.read(), blogName)
+        url = files_info[filename]['url']
+        post = HTMLparser(f.read(), blogName, url)
         if post is not None:
             post.save()
-    print('Created files: {}'.format(i), end='\r')
-    i+=1
-
+            saved_documents+=1
+        itered_documents += 1
+        print('Saved documents {} out of {}'.format(saved_documents, itered_documents), end='\r')

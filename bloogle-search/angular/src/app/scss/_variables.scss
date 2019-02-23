@@ -1,0 +1,164 @@
+@import "mixins";
+$main-color: #007fbf;
+$grey-section: #E3E3E3;
+$grey-color: #676767;
+$accent-color: #61ad26;
+$link-color: #3f51b5;
+.grey-color {
+    color: $grey-color;
+}
+.accent-color {
+  color: $accent-color;
+}
+.border-all {
+    border: 1px solid $grey-color;
+}
+
+a:not(.mat-list-item, .mat-grey) {
+    color: $main-color !important;
+}
+
+.mat-grey {
+    color: white;
+    background-color: $grey-color;
+}
+
+// fix checkbox with long labels https://github.com/angular/material2/issues/8416
+/deep/ .mat-checkbox-layout {
+    white-space: normal !important;
+}
+
+$link-hover-color: currentColor;
+$link-hover-decoration: none;
+$grid-breakpoints: ( xs: 0, // handset portrait (small, medium, large) | handset landscape (small)
+sm: 600px, // handset landscape (medium, large) | tablet portrait(small, large)
+md: 960px, //  tablet landscape (small, large)
+lg: 1280px, // laptops and desktops
+xl: 1600px // large desktops
+);
+$container-max-widths: ( sm: 600px, md: 960px, lg: 1280px, xl: 1600px);
+.main-color {
+    color: $main-color !important;
+}
+
+.main-background-color {
+    background-color: $main-color;
+}
+
+.font-size-45,
+.font-size-45 * {
+    font-size: 45px;
+}
+
+.font-size-36,
+.font-size-36 * {
+    font-size: 36px;
+}
+
+.font-size-35,
+.font-size-35 * {
+    font-size: 35px;
+}
+
+.font-size-34,
+.font-size-34 * {
+    font-size: 34px;
+}
+
+.font-size-30,
+.font-size-30 * {
+    font-size: 30px;
+}
+
+.font-size-25,
+.font-size-25 * {
+    font-size: 25px;
+}
+
+.font-size-24,
+.font-size-24 * {
+    font-size: 24px;
+}
+
+.font-size-20,
+.font-size-20 * {
+    font-size: 20px;
+}
+
+.font-size-18,
+.font-size-18 * {
+    font-size: 18px;
+}
+
+.font-size-16,
+.font-size-16 * {
+    font-size: 16px;
+}
+
+.font-size-15,
+.font-size-15 * {
+    font-size: 15px;
+}
+
+.font-size-10,
+.font-size-10 * {
+    font-size: 10px;
+}
+
+// ----------------------------------- Spacing -----------------------------------
+@include phone {
+    .mt-xs-0 {
+        margin-top: 0 !important;
+    }
+    .mt-xs-1 {
+        margin-top: 0.25rem !important;
+    }
+    .mt-xs-2 {
+        margin-top: 0.5rem !important;
+    }
+    .mt-xs-3 {
+        margin-top: 1rem !important;
+    }
+    .mt-xs-4 {
+        margin-top: 1.5rem !important;
+    }
+    .mt-xs-auto {
+        margin-top: auto !important;
+    }
+}
+
+.overflow-screen {
+    margin-left: calc(-50vw + 50%);
+    margin-right: calc(-50vw + 50%);
+    .row-images {
+        margin: auto;
+    }
+}
+
+// ----------------------------------- SHOW / HIDE -----------------------------------
+// phone is default
+.show-desktop {
+    display: none;
+}
+
+.show-phone {
+    display: initial;
+}
+
+@include tablet {
+    .show-phone {
+        display: none;
+    }
+    .show-desktop {
+        display: initial;
+    }
+}
+
+@include desktop {
+    .show-phone {
+        display: none;
+    }
+    .show-desktop {
+        display: initial;
+    }
+}
