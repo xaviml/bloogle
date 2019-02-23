@@ -10,5 +10,10 @@ import scrapy
 
 class BloogleItem(scrapy.Item):
     # define the fields for your item here like:
-    # name = scrapy.Field()
-    pass
+    filename = scrapy.Field()
+    body = scrapy.Field()
+    url = scrapy.Field()
+    links = scrapy.Field()
+
+    def __str__(self):
+        return ""

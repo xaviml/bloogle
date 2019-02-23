@@ -5,35 +5,26 @@ import os
 from selenium import webdriver
 import time
 from scrapy_selenium import SeleniumRequest
-import os
-
-# to get last-modified date we can:
-# -get last-modified response header, it will work if it's dinamic
-# -document.lastModified, it should work on static webside
-#     document.lastModified
-#     "02/12/2019 18:23:43"
-# -query google with:
-#     https://www.google.com/search?q=inurl:myWebsite&as_qdr=y15
-# 
-#     and if we get any results, try to get the date:
-# 
-#     $('.f').textContent.replace('-','').trim()
-#     "2 days ago"
-
+from bs4 import BeautifulSoup
+import json
+from ..items import BloogleItem
+from dateutil.parser import parse
+import pytz
+import uuid
 
 class BaseSpider(scrapy.Spider, abc.ABC):
 
-    def __init__(self, path='data'):
+    def __init__(self, path='data', meta=None):
         self.path = path
         self.crawled_pages = 0
+        self.explored_pages = 0
+        self.meta = meta
+        self.last_time_crawled = None
+        if self.meta is not None:
+            self.last_time_crawled = parse(self.meta['last_time_crawled']).replace(tzinfo=pytz.utc)
         super(BaseSpider, self).__init__()
 
     def start_requests(self):
-        # Creating the directory for the crawler
-        self.output_dir = os.path.join(self.path, self.name, 'page', '')
-        self.links_file_path = os.path.join(self.path, self.name, 'links.txt')
-        os.makedirs(self.output_dir, exist_ok=True)
-
         urls = self.get_initial_url()
         for url in urls:
             yield self.getRequest(url)
@@ -45,8 +36,8 @@ class BaseSpider(scrapy.Spider, abc.ABC):
             return Request(url=url, meta={'dont_merge_cookies': True}, callback=self.parse)
 
     def parse(self, response):
-        if(self.crawled_pages >= self.get_max_pages_to_crawled()):
-            return
+        if(self.should_stop()):
+            raise scrapy.exceptions.CloseSpider('Reached maximum pages: {}'.format(self.crawled_pages))
         url = response.url
         if self.is_dynamic():
             driver = response.request.meta['driver']
@@ -77,26 +68,43 @@ class BaseSpider(scrapy.Spider, abc.ABC):
         
         links = list(set(links))
         if self.is_relevant(url, body_selector):
-            file_name = self.name + '_' + str(self.crawled_pages)
-            # We need to think how we will name the files
-            filename = self.output_dir + file_name
             
-            # Save the content of the HTML
-            with open(filename, 'w', encoding="utf-8") as f:
-                f.write(body)
-            self.log('Saved file %s' % filename)
+            file_name = self.name + '_' + uuid.uuid4().__str__()
 
-            # file1 lastmodified main-url url1 url2 url3
-            fileInfo = file_name + '\t' + url + '\t' + '\t'.join(links) + '\n'
+            try:
+                soup = BeautifulSoup(body, 'lxml')
+                application_json_ld = json.loads(soup.find('script',{'type':'application/ld+json'}).get_text())
+            except:
+                application_json_ld = None
             
-            with open(self.links_file_path, 'a', encoding="utf-8") as f:
-                f.write(fileInfo)
+            datePublished = None
+            if application_json_ld is not None:
+                if 'datePublished' in application_json_ld:
+                    datePublished = application_json_ld['datePublished']
+                    datePublished = parse(datePublished)
+            
+            if self.is_refreshing():
+                if datePublished is None:
+                    return
+                elif datePublished < self.last_time_crawled:
+                    return
+
+            item = BloogleItem()
+            item['filename'] = file_name
+            item['body'] = body
+            item['url'] = url
+            item['links'] = links
+            yield item
+
             self.crawled_pages += 1
-            if(self.crawled_pages >= self.get_max_pages_to_crawled()):
+            if(self.should_stop()):
                 raise scrapy.exceptions.CloseSpider('Reached maximum pages: {}'.format(self.crawled_pages))
-
         for link in links:
             yield self.getRequest(link)
+        self.explored_pages += 1
+
+    def is_refreshing(self):
+        return self.meta is not None
 
     @abc.abstractmethod
     def get_initial_url(self):
@@ -152,9 +160,13 @@ class BaseSpider(scrapy.Spider, abc.ABC):
         '''
         pass
 
-    def get_max_pages_to_crawled(self):
+    def should_stop(self):
         '''
         Returns:
-            * The minimum pages to be crawled
+            * whether the crawl should stop or not
         '''
-        return 10000
+        if self.is_refreshing():
+            # If the percentage of crawled pages is below 10% and we have more than 99 explored pages, we stop
+            return self.explored_pages > 99 and self.crawled_pages * 100 / self.explored_pages < 10
+        else:
+            return self.crawled_pages >= 5

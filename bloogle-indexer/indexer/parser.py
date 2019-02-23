@@ -38,6 +38,9 @@ def HTMLparser(page, blog):
         datestring = soup.find('span',{'class':'updated'})['title'].split()[0]
         datePublished = parse(datestring)
 
+    if len(content) < 500:
+        return None
+        
     return Post(
         title= title,
         content= content,
