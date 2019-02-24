@@ -1,0 +1,23 @@
+<form class="parent">
+  <div>
+    <div class="row justify-content-center">
+      <div class="col-auto">
+        <img src="../../../assets/bloogle.png" width="272">
+      </div>
+    </div>
+    <div class="row justify-content-center">
+      <div class="col-auto" id="wrapper">
+          <input [(ngModel)]="query" name="query">
+        <!-- <mat-form-field>
+          <input matInput [(ngModel)]="query" name="query">
+        </mat-form-field> -->
+      </div>
+    </div>
+    <div class="row justify-content-center mt-3">
+      <div class="col-auto">
+        <button mat-button mat-raised-button class="mr-3" (click)="search()">Search</button>
+        <button mat-button mat-raised-button class="mr-3" (click)="lucky()">I feel lucky</button>
+      </div>
+    </div>
+  </div>
+</form>

@@ -1,0 +1,26 @@
+.parent {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    #wrapper {
+        background: #fff;
+        display: flex;
+        border-radius: 8px;
+        border: 1px solid #dfe1e5;
+        box-shadow: none;
+        border-radius: 24px;
+        z-index: 3;
+        height: 44px;
+        margin: 0 auto;
+        width: 482px;
+        &:hover {
+            box-shadow: 0 1px 6px 0 rgba(32, 33, 36, 0.28);
+            border-color: rgba(223, 225, 229, 0);
+        }
+        input {
+            border: none;
+            width: 100%;
+        }
+    }
+}

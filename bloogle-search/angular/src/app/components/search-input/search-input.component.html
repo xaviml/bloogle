@@ -23,5 +23,7 @@
       </mat-card-actions>
     </mat-card>
   </div>
-
+  <div *ngIf="showError" class="row justify-content-center">
+    No results found for <strong>"{{query}}".</strong>
+  </div>
 </form>
