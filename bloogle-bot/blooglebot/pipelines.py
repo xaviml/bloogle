@@ -9,6 +9,7 @@ import json
 
 class BlooglePipeline(object):
     links = dict()
+    counter = 0
 
     def open_spider(self, spider):
         # Open the links.json
@@ -32,6 +33,13 @@ class BlooglePipeline(object):
                 'filename' : item['filename'],
                 'links' : item['links']
             }
+            self.counter += 1
+            if spider.is_refreshing():
+                msg = 'Pages crawled: {}'
+            else:
+                msg = 'New pages crawled: {}'
+            print(msg.format(self.counter))
+
         return item
 
     def close_spider(self, spider):

@@ -1,5 +1,6 @@
 import optparse
 from elasticsearch_dsl import connections
+from elasticsearch import Elasticsearch
 from indexer.parser import HTMLparser
 from indexer.post import Post
 import glob
@@ -12,6 +13,8 @@ parser.add_option('-i', '--input', dest="input", help="Input path", default='dat
 
 options, args = parser.parse_args()
 #options.input -> to access the data folder
+
+client = Elasticsearch()
 
 def read_links(filepath):
     jsonfile = {}
@@ -44,9 +47,10 @@ for filepath in filepaths:
         filename = filepath.split(os.path.sep)[-1]
         blogName = filename.split('_')[0]
         url = files_info[filename]['url']
-        post = HTMLparser(f.read(), blogName, url)
-        if post is not None:
-            post.save()
-            saved_documents+=1
+        if len(url) <= 512 and not client.exists(index='blog', doc_type='doc', id=url):
+            post = HTMLparser(f.read(), blogName, url)
+            if post is not None:
+                post.save()
+                saved_documents+=1
         itered_documents += 1
         print('Saved documents {} out of {}'.format(saved_documents, itered_documents), end='\r')
