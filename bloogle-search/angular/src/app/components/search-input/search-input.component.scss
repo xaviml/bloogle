@@ -1,3 +1,4 @@
+@import '../../scss/mixins';
 form {
     margin-top: 20px;
     #search {
@@ -50,4 +51,9 @@ form {
     mat-card-content {
         margin: 0 16px;
     }
+}
+
+
+.block-with-text {
+  @include multiLineEllipsis($lineHeight: 1.2em, $lineCount: 3, $bgColor: white);
 }
