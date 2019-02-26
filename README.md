@@ -8,6 +8,15 @@ pip install -r requirements.txt
 
 In addition, [elasticsearch](https://www.elastic.co/downloads/elasticsearch) must be installed and running in http://localhost:9200.
 
+Add the next lines on elasticsearch.yml:
+~~~
+http.cors.enabled : true
+http.cors.allow-origin: "*"
+http.cors.allow-methods: OPTIONS, HEAD, GET, POST, PUT, DELETE
+http.cors.allow-headers: X-Requested-With,X-Auth-Token,Content-Type,Content-Length
+http.cors.allow-credentials: true
+~~~
+
 Apart from following this set up instructions, you can follow the submodules instructions if you want to run them all.
 
 ## Run
