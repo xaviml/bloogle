@@ -1,4 +1,4 @@
-<form>
+<form class="container">
   <div class="ml-0 pb-3 row" id="search">
     <a id="img-wrapper" href="/">
       <img src="../../../assets/bloogle.png" width="92" height="30">
@@ -28,7 +28,7 @@
       About {{queryResult?.numResults | number:'1.'}} results ({{queryResult?.time}} ms)
     </div>
     <div class="row">
-      <mat-card class="col-xs-12 m-4" *ngFor="let post of queryResult?.posts">
+      <mat-card class="col-xs-12 col-sm-12 m-4" *ngFor="let post of queryResult?.posts">
         <mat-card-header>
           <mat-card-title><a [href]="post.url" target="_blank">{{post.title}}</a></mat-card-title>
           <mat-card-subtitle><a id="url" [href]="post.url" target="_blank">{{post.url}}</a> </mat-card-subtitle>
