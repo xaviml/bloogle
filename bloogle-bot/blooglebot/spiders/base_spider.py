@@ -67,6 +67,8 @@ class BaseSpider(scrapy.Spider, abc.ABC):
                     links.append(next_url)
         
         links = list(set(links))
+        self.explored_pages += 1
+        
         if self.is_relevant(url, body_selector):
             
             file_name = self.name + '_' + uuid.uuid4().__str__()
@@ -101,7 +103,6 @@ class BaseSpider(scrapy.Spider, abc.ABC):
                 raise scrapy.exceptions.CloseSpider('Reached maximum pages: {}'.format(self.crawled_pages))
         for link in links:
             yield self.getRequest(link)
-        self.explored_pages += 1
 
     def is_refreshing(self):
         return self.meta is not None
