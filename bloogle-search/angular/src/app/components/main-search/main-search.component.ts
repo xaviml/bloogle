@@ -13,13 +13,16 @@ export class MainSearchComponent implements OnInit {
   constructor(private router: Router,
     private location: Location,
     private es: ElasticsearchService) {
-      this.location.go('');
-    }
+    this.location.go('');
+  }
 
   ngOnInit() {
   }
 
   lucky() {
+    if (!this.query) {
+      return;
+    }
     this.es.searchOne(this.query).subscribe((queryResult: QueryResult) => {
       if (queryResult.numResults === 0) { // no results
         this.router.navigate([routeNames.SEARCH], { queryParams: { q: this.query, lucky: true } });
@@ -30,6 +33,9 @@ export class MainSearchComponent implements OnInit {
   }
 
   search() {
+    if (!this.query) {
+      return;
+    }
     this.router.navigate([routeNames.SEARCH], { queryParams: { q: this.query } });
   }
 
