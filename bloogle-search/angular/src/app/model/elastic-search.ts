@@ -14,12 +14,17 @@ export interface Source {
   url: string;
 }
 
+export interface Highlight {
+  content: string[];
+}
+
 export interface Hit {
   _index: string;
   _type: string;
   _id: string;
   _score: number;
   _source: Source;
+  highlight: Highlight;
 }
 
 export interface Hits {

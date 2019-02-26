@@ -27,6 +27,13 @@ export class ElasticsearchService {
           'fields': ['content', 'publishDate', 'publishModified', 'author']
         }
       },
+      'highlight': {
+        'pre_tags' : ['<strong>'],
+        'post_tags' : ['</strong>'],
+        'fields': {
+          'content': {}
+        }
+      },
       'from': fromNum,
       'size': num
     };
@@ -62,7 +69,11 @@ export class ElasticsearchService {
     const queryResult = new QueryResult();
     queryResult.time = r.took;
     queryResult.numResults = r.hits.total;
-    queryResult.posts = r.hits.hits.map(item => item._source);
+    queryResult.posts = r.hits.hits.map(item => {
+      const p = item._source;
+      p.content = item.highlight.content.join('...').concat('...');
+      return p;
+    });
     return queryResult;
   }
 }
