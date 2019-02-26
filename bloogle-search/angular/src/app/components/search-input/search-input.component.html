@@ -43,5 +43,12 @@
         </mat-card-actions>
       </mat-card>
     </div>
+    <div class="row justify-content-center">
+      <div class="col-auto">
+        <app-paginator [numResults]="queryResult?.numResults" [resultsPerPage]="es.DEFAULT_NUM_PAGES"
+          (pageClicked)="pageClicked($event)"></app-paginator>
+      </div>
+    </div>
   </ng-template>
+
 </form>

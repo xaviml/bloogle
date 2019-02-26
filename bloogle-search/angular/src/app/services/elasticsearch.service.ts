@@ -10,15 +10,16 @@ import { ElasticSearchResult } from '../model/elastic-search';
   providedIn: 'root'
 })
 export class ElasticsearchService {
+  public readonly DEFAULT_NUM_PAGES = 10;
   private client: Client;
   private readonly _index = 'blog';
   private readonly _type = 'doc';
-  private queryAllPosts = {
-    'query': {
-      'match_all': {}
-    }
-  };
-  private query(q: string, num: number) {
+  // private queryAllPosts = {
+  //   'query': {
+  //     'match_all': {}
+  //   }
+  // };
+  private query(q: string, num: number, fromNum: number) {
     return {
       'query': {
         'multi_match': {
@@ -26,7 +27,7 @@ export class ElasticsearchService {
           'fields': ['content', 'publishDate', 'publishModified', 'author']
         }
       },
-      'from': 0,
+      'from': fromNum,
       'size': num
     };
   }
@@ -40,12 +41,11 @@ export class ElasticsearchService {
 
 
 
-  search(query): Observable<QueryResult> {
+  search(query, page = 0): Observable<QueryResult> {
     const p: Promise<any> = this.client.search({
       index: this._index,
       type: this._type,
-      body: this.query(query, 10),
-      // filterPath: ['hits.hits._source']
+      body: this.query(query, this.DEFAULT_NUM_PAGES, page * this.DEFAULT_NUM_PAGES),
     });
     return from(p).pipe(map(this.mapES));
   }
@@ -53,8 +53,7 @@ export class ElasticsearchService {
     const p: Promise<ElasticSearchResult> = this.client.search({
       index: this._index,
       type: this._type,
-      body: this.query(query, 1),
-      // filterPath: ['hits.hits._source']
+      body: this.query(query, 1, 0),
     });
     return from(p).pipe(map(this.mapES));
   }

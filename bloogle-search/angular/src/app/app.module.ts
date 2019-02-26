@@ -55,12 +55,14 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './components/app/app.component';
 import { SearchInputComponent } from './components/search-input/search-input.component';
 import { MainSearchComponent } from './components/main-search/main-search.component';
+import { PaginatorComponent } from './components/paginator/paginator.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     SearchInputComponent,
-    MainSearchComponent
+    MainSearchComponent,
+    PaginatorComponent
   ],
   imports: [
     BrowserModule,

@@ -13,7 +13,7 @@ export class SearchInputComponent implements OnInit {
   lucky: boolean;
   queryResult: QueryResult;
   showError: boolean;
-  constructor(private es: ElasticsearchService,
+  constructor(public es: ElasticsearchService,
     private location: Location,
     private activatedRoute: ActivatedRoute) {
     this.showError = false;
@@ -35,11 +35,13 @@ export class SearchInputComponent implements OnInit {
   search() {
     this.doSearch();
   }
-
-  private doSearch() {
+  pageClicked(page) {
+    this.doSearch(page);
+  }
+  private doSearch(size?: number) {
     this.showError = false;
     if (this.query) {
-      this.es.search(this.query).subscribe((queryResult: QueryResult) => {
+      this.es.search(this.query, size).subscribe((queryResult: QueryResult) => {
         if (queryResult.numResults === 0) { // no results
           this.showError = true;
         } else {
