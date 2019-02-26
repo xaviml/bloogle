@@ -1,8 +1,7 @@
-import { ElasticsearchService } from './../../services/elasticsearch.service';
+import { ElasticsearchService, QueryResult } from './../../services/elasticsearch.service';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { routeNames } from 'src/app/route-names';
-import { Post } from 'src/app/model/post';
 
 @Component({
   selector: 'app-main-search',
@@ -18,12 +17,11 @@ export class MainSearchComponent implements OnInit {
   }
 
   lucky() {
-    this.es.searchOne(this.query).subscribe(hits => {
-      if (hits['hits']) {
-        const posts: Post[] = hits['hits']['hits'].map(item => item._source);
-        window.location.href = posts[0].url;
-      } else {
+    this.es.searchOne(this.query).subscribe((queryResult: QueryResult) => {
+      if (queryResult.numResults === 0) { // no results
         this.router.navigate([routeNames.SEARCH], { queryParams: { q: this.query, lucky: true } });
+      } else { // success
+        window.location.href = queryResult.posts[0].url;
       }
     });
   }

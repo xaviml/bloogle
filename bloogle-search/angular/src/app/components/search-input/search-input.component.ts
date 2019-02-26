@@ -1,8 +1,9 @@
-import { ElasticsearchService } from './../../services/elasticsearch.service';
+import { ElasticsearchService, QueryResult } from './../../services/elasticsearch.service';
 import { Component, OnInit } from '@angular/core';
 import { Post } from 'src/app/model/post';
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
+import { routeNames } from 'src/app/route-names';
 @Component({
   selector: 'app-search-input',
   templateUrl: './search-input.component.html',
@@ -11,7 +12,7 @@ import { Location } from '@angular/common';
 export class SearchInputComponent implements OnInit {
   query: string;
   lucky: boolean;
-  posts: Post[];
+  queryResult: QueryResult;
   showError: boolean;
   constructor(private es: ElasticsearchService,
     private location: Location,
@@ -38,14 +39,16 @@ export class SearchInputComponent implements OnInit {
 
   private doSearch() {
     this.showError = false;
-    this.es.search(this.query).subscribe(hits => {
-      if (hits['hits']) {
-        this.posts = hits['hits']['hits'].map(item => item._source);
-        this.showError = false;
-      } else {
-        this.showError = true;
-      }
-      this.location.go(`?query=${this.query}` );
-    });
+    if (this.query) {
+      this.es.search(this.query).subscribe((queryResult: QueryResult) => {
+        if (queryResult.numResults === 0) { // no results
+          this.showError = true;
+        } else {
+          this.queryResult = queryResult;
+          this.showError = false;
+        }
+        this.location.go(`${routeNames.SEARCH}?q=${this.query}`);
+      });
+    }
   }
 }

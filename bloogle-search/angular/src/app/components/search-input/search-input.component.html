@@ -18,23 +18,30 @@
       </button>
     </div>
   </div>
-  <div class="row" *ngIf="!showError">
-    <mat-card class="col-xs-12 m-4" *ngFor="let post of posts">
-      <mat-card-header>
-        <mat-card-title>{{post.title}}</mat-card-title>
-        <mat-card-subtitle>{{post.author}}</mat-card-subtitle>
-      </mat-card-header>
-      <mat-card-content>
-        <p>
-          {{post.content}}
-        </p>
-      </mat-card-content>
-      <mat-card-actions>
-        <a mat-button [href]="post.url" target="_blank">View</a>
-      </mat-card-actions>
-    </mat-card>
+  <div *ngIf="showError; else noError">
+    <div class="row justify-content-center">
+      No results found for &nbsp;<strong>"{{query}}".</strong>
+    </div>
   </div>
-  <div *ngIf="showError" class="row justify-content-center">
-    No results found for &nbsp;<strong>"{{query}}".</strong>
-  </div>
+  <ng-template #noError>
+    <div id="resultStats" class="mt-2">
+      About {{queryResult?.numResults}} results ({{queryResult?.time}} ms)
+    </div>
+    <div class="row">
+      <mat-card class="col-xs-12 m-4" *ngFor="let post of queryResult?.posts">
+        <mat-card-header>
+          <mat-card-title>{{post.title}}</mat-card-title>
+          <mat-card-subtitle>{{post.author}}</mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content>
+          <p>
+            {{post.content}}
+          </p>
+        </mat-card-content>
+        <mat-card-actions>
+          <a mat-button [href]="post.url" target="_blank">View</a>
+        </mat-card-actions>
+      </mat-card>
+    </div>
+  </ng-template>
 </form>
