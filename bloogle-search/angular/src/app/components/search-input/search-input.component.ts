@@ -15,6 +15,7 @@ export class SearchInputComponent implements OnInit {
   lucky: boolean;
   queryResult: QueryResult;
   showError: boolean;
+  searching: boolean;
   gte: ElasticDateRange;
   constructor(public es: ElasticsearchService,
     private location: Location,
@@ -45,6 +46,7 @@ export class SearchInputComponent implements OnInit {
   private doSearch(page?: number) {
     this.showError = false;
     if (this.query) {
+      this.searching = true;
       this.es.search(this.query, page, this.gte).subscribe((queryResult: QueryResult) => {
         if (queryResult.numResults === 0) { // no results
           this.showError = true;
@@ -53,6 +55,7 @@ export class SearchInputComponent implements OnInit {
           this.showError = false;
         }
         this.location.go(`${routeNames.SEARCH}?q=${this.query}`);
+        this.searching = false;
       });
     }
   }

@@ -32,33 +32,34 @@
       </mat-option>
     </mat-select>
   </div>
-  <div *ngIf="showError; else noError">
-    <div class="row justify-content-center mt-3">
-      No results found for &nbsp;<strong>"{{query}}".</strong>
-    </div>
-  </div>
-  <ng-template #noError>
-    <div id="resultStats" class="mt-2">
-      About {{queryResult?.numResults | number:'1.'}} results ({{queryResult?.time}} ms)
-    </div>
-    <div class="row">
-      <mat-card class="col-xs-12 col-sm-12 m-4" *ngFor="let post of queryResult?.posts">
-        <mat-card-header>
-          <mat-card-title><a [href]="post.url" target="_blank">{{post.title}}</a></mat-card-title>
-          <mat-card-subtitle><a id="url" [href]="post.url" target="_blank">{{post.url}}</a> </mat-card-subtitle>
-          <mat-card-subtitle>{{post.author}}</mat-card-subtitle>
-        </mat-card-header>
-        <mat-card-content>
-          <p [innerHTML]="post.content"></p>
-        </mat-card-content>
-      </mat-card>
-    </div>
-    <div class="row justify-content-center">
-      <div class="col-auto">
-        <app-paginator [numResults]="queryResult?.numResults" [resultsPerPage]="es.DEFAULT_NUM_PAGES"
-          (pageClicked)="pageClicked($event)"></app-paginator>
+  <div [hidden]="searching">
+    <div *ngIf="showError; else noError">
+      <div class="row justify-content-center mt-3">
+        No results found for &nbsp;<strong>"{{query}}".</strong>
       </div>
     </div>
-  </ng-template>
-
+    <ng-template #noError>
+      <div id="resultStats" class="mt-2">
+        About {{queryResult?.numResults | number:'1.'}} results ({{queryResult?.time}} ms)
+      </div>
+      <div class="row">
+        <mat-card class="col-xs-12 col-sm-12 m-4" *ngFor="let post of queryResult?.posts">
+          <mat-card-header>
+            <mat-card-title><a [href]="post.url" target="_blank">{{post.title}}</a></mat-card-title>
+            <mat-card-subtitle><a id="url" [href]="post.url" target="_blank">{{post.url}}</a> </mat-card-subtitle>
+            <mat-card-subtitle>{{post.author}}</mat-card-subtitle>
+          </mat-card-header>
+          <mat-card-content>
+            <p [innerHTML]="post.content"></p>
+          </mat-card-content>
+        </mat-card>
+      </div>
+      <div class="row justify-content-center">
+        <div class="col-auto">
+          <app-paginator [numResults]="queryResult?.numResults" [resultsPerPage]="es.DEFAULT_NUM_PAGES"
+            (pageClicked)="pageClicked($event)"></app-paginator>
+        </div>
+      </div>
+    </ng-template>
+  </div>
 </form>
