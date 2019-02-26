@@ -1,6 +1,5 @@
 import { ElasticsearchService, QueryResult } from './../../services/elasticsearch.service';
 import { Component, OnInit } from '@angular/core';
-import { Post } from 'src/app/model/post';
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 import { routeNames } from 'src/app/route-names';

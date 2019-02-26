@@ -1,8 +1,8 @@
 <form>
   <div class="ml-0 pb-3 row" id="search">
-    <div id="img-wrapper">
+    <a id="img-wrapper" href="/">
       <img src="../../../assets/bloogle.png" width="92" height="30">
-    </div>
+    </a>
     <div class="col-auto wrapper">
       <input [(ngModel)]="query" name="query">
       <button class="search-btn" aria-label="Bloogle Search" type="submit" (click)="search()">
@@ -19,7 +19,7 @@
     </div>
   </div>
   <div *ngIf="showError; else noError">
-    <div class="row justify-content-center">
+    <div class="row justify-content-center mt-3">
       No results found for &nbsp;<strong>"{{query}}".</strong>
     </div>
   </div>

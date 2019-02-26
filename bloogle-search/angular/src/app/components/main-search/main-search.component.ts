@@ -2,7 +2,7 @@ import { ElasticsearchService, QueryResult } from './../../services/elasticsearc
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { routeNames } from 'src/app/route-names';
-
+import { Location } from '@angular/common';
 @Component({
   selector: 'app-main-search',
   templateUrl: './main-search.component.html',
@@ -11,7 +11,10 @@ import { routeNames } from 'src/app/route-names';
 export class MainSearchComponent implements OnInit {
   query: string;
   constructor(private router: Router,
-    private es: ElasticsearchService) { }
+    private location: Location,
+    private es: ElasticsearchService) {
+      this.location.go('');
+    }
 
   ngOnInit() {
   }

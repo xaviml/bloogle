@@ -8,6 +8,7 @@ import { routeNames } from './route-names';
 const routes: Routes = [
   { path: '', component: MainSearchComponent, pathMatch: 'full' },
   { path: routeNames.SEARCH, component: SearchInputComponent, pathMatch: 'full' },
+  { path: '**', component: MainSearchComponent},
 ];
 
 @NgModule({
