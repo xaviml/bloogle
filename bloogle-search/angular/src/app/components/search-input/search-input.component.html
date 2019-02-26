@@ -1,13 +1,24 @@
 <form>
-  <div class="row justify-content-center">
-    <div class="col-xs-12">
-      <mat-form-field>
-        <input matInput [(ngModel)]="query" name="query">
-      </mat-form-field>
-      <button mat-button color="primary" (click)="search()">Search</button>
+  <div class="ml-0 pb-3 row" id="search">
+    <div id="img-wrapper">
+      <img src="../../../assets/bloogle.png" width="92" height="30">
+    </div>
+    <div class="col-auto wrapper">
+      <input [(ngModel)]="query" name="query">
+      <button class="search-btn" aria-label="Bloogle Search" type="submit" (click)="search()">
+        <div class="search-btn-sub-1">
+          <span class="search-btn-sub-2">
+            <svg focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+              <path
+                d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z">
+              </path>
+            </svg>
+          </span>
+        </div>
+      </button>
     </div>
   </div>
-  <div class="row">
+  <div class="row" *ngIf="!showError">
     <mat-card class="col-xs-12 m-4" *ngFor="let post of posts">
       <mat-card-header>
         <mat-card-title>{{post.title}}</mat-card-title>
@@ -24,6 +35,6 @@
     </mat-card>
   </div>
   <div *ngIf="showError" class="row justify-content-center">
-    No results found for <strong>"{{query}}".</strong>
+    No results found for &nbsp;<strong>"{{query}}".</strong>
   </div>
 </form>

@@ -2,7 +2,7 @@ import { ElasticsearchService } from './../../services/elasticsearch.service';
 import { Component, OnInit } from '@angular/core';
 import { Post } from 'src/app/model/post';
 import { ActivatedRoute } from '@angular/router';
-
+import { Location } from '@angular/common';
 @Component({
   selector: 'app-search-input',
   templateUrl: './search-input.component.html',
@@ -14,6 +14,7 @@ export class SearchInputComponent implements OnInit {
   posts: Post[];
   showError: boolean;
   constructor(private es: ElasticsearchService,
+    private location: Location,
     private activatedRoute: ActivatedRoute) {
     this.showError = false;
     this.activatedRoute.queryParams.subscribe(queryParamsObj => {
@@ -44,6 +45,7 @@ export class SearchInputComponent implements OnInit {
       } else {
         this.showError = true;
       }
+      this.location.go(`?query=${this.query}` );
     });
   }
 }
