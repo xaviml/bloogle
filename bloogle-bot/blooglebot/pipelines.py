@@ -35,9 +35,9 @@ class BlooglePipeline(object):
             }
             self.counter += 1
             if spider.is_refreshing():
-                msg = 'Pages crawled: {}'
-            else:
                 msg = 'New pages crawled: {}'
+            else:
+                msg = 'Pages crawled: {}'
             print(msg.format(self.counter))
 
         return item

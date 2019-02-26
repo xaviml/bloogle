@@ -40,13 +40,14 @@ def HTMLparser(page, blog, url):
 
     if len(content) < 500:
         return None
-        
+    
+    content = content.replace('\n','')
     return Post(
         meta={'id':url},
-        title= title,
-        content= content,
-        author= author,
-        datePublished= datePublished,
-        dateModified= dateModified,
+        title=title,
+        content=content,
+        author=author,
+        datePublished=datePublished,
+        dateModified=dateModified,
         url=url
     )

@@ -27,12 +27,8 @@ def read_links(filepath):
         del out[v['filename']]['filename']
     return out 
 
-def inits():
-    #Post.init()
-    pass
-
 connections.create_connection(hosts=['localhost'], port=9200)
-inits()
+Post.init()
 
 path = os.path.join(options.input, 'links.json')
 files_info = read_links(path)
