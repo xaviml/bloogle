@@ -8,14 +8,16 @@ import os
 import json
 
 class BlooglePipeline(object):
-    links = dict()
-    counter = 0
+
+    def __init__(self):
+        self.links = dict()
+        self.counter = 0
 
     def open_spider(self, spider):
         # Open the links.json
         # Creating the directory for the crawler
-        self.output_dir = os.path.join(spider.path, 'pages', '')
-        self.links_file_path = os.path.join(spider.path, 'links.json')
+        self.output_dir = os.path.join(spider.path, spider.name, 'pages', '')
+        self.links_file_path = os.path.join(spider.path,  spider.name, 'links.json')
         os.makedirs(self.output_dir, exist_ok=True)
 
         if os.path.exists(self.links_file_path):
@@ -35,10 +37,10 @@ class BlooglePipeline(object):
             }
             self.counter += 1
             if spider.is_refreshing():
-                msg = 'New pages crawled: {}'
+                msg = '[{}] New pages crawled: {}'
             else:
-                msg = 'Pages crawled: {}'
-            print(msg.format(self.counter))
+                msg = '[{}] Pages crawled: {}'
+            print(msg.format(spider.name, self.counter))
 
         return item
 
