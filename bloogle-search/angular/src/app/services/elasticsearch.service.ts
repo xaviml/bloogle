@@ -4,7 +4,7 @@ import { Post } from '../model/post';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { from } from 'rxjs';
-import { ElasticSearchResult } from '../model/elastic-search';
+import { ElasticSearchResult, ElasticSearchRequest, ElasticDateRange } from '../model/elastic-search';
 
 @Injectable({
   providedIn: 'root'
@@ -14,29 +14,50 @@ export class ElasticsearchService {
   private client: Client;
   private readonly _index = 'blog';
   private readonly _type = 'doc';
-  // private queryAllPosts = {
-  //   'query': {
-  //     'match_all': {}
-  //   }
-  // };
-  private query(q: string, num: number, fromNum: number) {
-    return {
+
+  private query(q: string, num: number, fromNum: number, gte?: ElasticDateRange) {
+    const query: ElasticSearchRequest = {
       'query': {
-        'multi_match': {
-          'query': q,
-          'fields': ['content', 'publishDate', 'publishModified', 'author']
+        'bool': {
+          'must': [
+            {
+              'multi_match': {
+                'query': q,
+                'fields': [
+                  'content',
+                  'publishDate',
+                  'publishModified',
+                  'author'
+                ]
+              }
+            }
+          ]
         }
       },
       'highlight': {
-        'pre_tags' : ['<strong>'],
-        'post_tags' : ['</strong>'],
+        'pre_tags': [
+          '<strong>'],
+        'post_tags': [
+          '</strong>'],
         'fields': {
-          'content': {}
+          'content': {
+          }
         }
       },
       'from': fromNum,
       'size': num
     };
+    if (gte) {
+      query.query.bool.must.push({
+        'range': {
+          'datePublished': {
+            'gte': gte
+          }
+        }
+      });
+    }
+
+    return query;
   }
 
   constructor() {
@@ -48,11 +69,11 @@ export class ElasticsearchService {
 
 
 
-  search(query, page = 0): Observable<QueryResult> {
+  search(query, page = 0, gte?: ElasticDateRange): Observable<QueryResult> {
     const p: Promise<any> = this.client.search({
       index: this._index,
       type: this._type,
-      body: this.query(query, this.DEFAULT_NUM_PAGES, page * this.DEFAULT_NUM_PAGES),
+      body: this.query(query, this.DEFAULT_NUM_PAGES, page * this.DEFAULT_NUM_PAGES, gte),
     });
     return from(p).pipe(map(this.mapES));
   }

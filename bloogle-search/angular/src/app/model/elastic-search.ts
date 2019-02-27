@@ -15,7 +15,10 @@ export interface Source {
 }
 
 export interface Highlight {
-  content: string[];
+  content?: string[];
+  pre_tags: string[];
+  post_tags: string[];
+  fields: Fields;
 }
 
 export interface Hit {
@@ -38,4 +41,51 @@ export interface ElasticSearchResult {
   timed_out: boolean;
   _shards: Shards;
   hits: Hits;
+}
+
+export interface MultiMatch {
+  query: string;
+  fields: string[];
+}
+
+export enum ElasticDateRange {
+  PAST_YEAR = 'now-1y/d',
+  PAST_MONTH = 'now-1M/d',
+  PAST_WEEK = 'now-1w/d',
+}
+
+export interface DatePublished {
+  gte: ElasticDateRange;
+}
+
+export interface Range {
+  datePublished: DatePublished;
+}
+
+export interface Must {
+  multi_match?: MultiMatch;
+  range?: Range;
+}
+
+export interface Bool {
+  must: Must[];
+}
+
+export interface Query {
+  bool: Bool;
+}
+
+// tslint:disable-next-line:no-empty-interface
+export interface Content {
+}
+
+export interface Fields {
+  content: Content;
+}
+
+export interface ElasticSearchRequest {
+  query: Query;
+  highlight: Highlight;
+  from: number;
+  size: number;
 }

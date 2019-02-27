@@ -3,19 +3,24 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 import { routeNames } from 'src/app/route-names';
+import { ElasticDateRange } from 'src/app/model/elastic-search';
 @Component({
   selector: 'app-search-input',
   templateUrl: './search-input.component.html',
   styleUrls: ['./search-input.component.scss']
 })
 export class SearchInputComponent implements OnInit {
+  ElasticDateRange = ElasticDateRange;
   query: string;
   lucky: boolean;
   queryResult: QueryResult;
   showError: boolean;
+  searching: boolean;
+  gte: ElasticDateRange;
   constructor(public es: ElasticsearchService,
     private location: Location,
     private activatedRoute: ActivatedRoute) {
+    this.gte = null;
     this.showError = false;
     this.activatedRoute.queryParams.subscribe(queryParamsObj => {
       this.query = queryParamsObj['q'];
@@ -38,10 +43,11 @@ export class SearchInputComponent implements OnInit {
   pageClicked(page) {
     this.doSearch(page);
   }
-  private doSearch(size?: number) {
+  private doSearch(page?: number) {
     this.showError = false;
     if (this.query) {
-      this.es.search(this.query, size).subscribe((queryResult: QueryResult) => {
+      this.searching = true;
+      this.es.search(this.query, page, this.gte).subscribe((queryResult: QueryResult) => {
         if (queryResult.numResults === 0) { // no results
           this.showError = true;
         } else {
@@ -49,6 +55,7 @@ export class SearchInputComponent implements OnInit {
           this.showError = false;
         }
         this.location.go(`${routeNames.SEARCH}?q=${this.query}`);
+        this.searching = false;
       });
     }
   }

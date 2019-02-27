@@ -36,6 +36,10 @@ form {
                 }
             }
         }
+        #gte {
+            width: 150px;
+            margin: auto 10px;
+        }
     }
     #resultStats {
         color: #808080;
@@ -44,8 +48,8 @@ form {
         padding-bottom: 0;
         padding-right: 8px;
     }
-    #url{
-      color: #006621 !important;
+    #url {
+        color: #006621 !important;
     }
     mat-card-content {
         margin: 0 16px;
