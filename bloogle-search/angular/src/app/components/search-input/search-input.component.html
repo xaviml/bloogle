@@ -50,7 +50,7 @@
             <mat-card-subtitle>{{post.author}}</mat-card-subtitle>
           </mat-card-header>
           <mat-card-content>
-            <p [innerHTML]="post.content"></p>
+            <p [innerHTML]="post.content" class="content" [ngClass]="{doesNotHaveHtml:!post.contentHasHtml}"></p>
           </mat-card-content>
         </mat-card>
       </div>

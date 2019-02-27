@@ -1,26 +1,29 @@
 import { ElasticsearchService, QueryResult } from './../../services/elasticsearch.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit, AfterViewChecked } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 import { routeNames } from 'src/app/route-names';
 import { ElasticDateRange } from 'src/app/model/elastic-search';
+import { ellipsis } from 'ellipsed';
 @Component({
   selector: 'app-search-input',
   templateUrl: './search-input.component.html',
   styleUrls: ['./search-input.component.scss']
 })
-export class SearchInputComponent implements OnInit {
+export class SearchInputComponent implements OnInit, AfterViewChecked {
   ElasticDateRange = ElasticDateRange;
   query: string;
   lucky: boolean;
   queryResult: QueryResult;
   showError: boolean;
   searching: boolean;
+  ellipsisApplied: boolean;
   gte: ElasticDateRange;
   private readonly invertedCommasRe = new RegExp(/"(.*?)"/, 'g');
   constructor(public es: ElasticsearchService,
     private location: Location,
     private activatedRoute: ActivatedRoute) {
+    this.ellipsisApplied = true;
     this.gte = null;
     this.showError = false;
     this.activatedRoute.queryParams.subscribe(queryParamsObj => {
@@ -37,7 +40,12 @@ export class SearchInputComponent implements OnInit {
 
   ngOnInit() {
   }
-
+  ngAfterViewChecked(): void {
+    if (!this.ellipsisApplied) {
+      ellipsis('.content.doesNotHaveHtml', 3);
+      this.ellipsisApplied = true;
+    }
+  }
   search() {
     this.doSearch();
   }
@@ -54,6 +62,7 @@ export class SearchInputComponent implements OnInit {
         if (queryResult.numResults === 0) { // no results
           this.showError = true;
         } else {
+          this.ellipsisApplied = false;
           this.queryResult = queryResult;
           this.showError = false;
         }

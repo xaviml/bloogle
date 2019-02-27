@@ -109,10 +109,11 @@ export class ElasticsearchService {
     queryResult.time = r.took;
     queryResult.numResults = r.hits.total;
     queryResult.posts = r.hits.hits.map(item => {
-      const p = item._source;
+      const p: Post = Object.assign(new Post(), item._source);
       if (item.highlight) {
         if (item.highlight.content) {
           p.content = item.highlight.content.join('...').concat('...');
+          p.contentHasHtml = true;
         }
         if (item.highlight.title) {
           if (item.highlight.title.length === 1) {

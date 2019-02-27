@@ -5,4 +5,6 @@ export class Post {
   datePublished: Date;
   dateModified: Date;
   url: string;
+
+  contentHasHtml: boolean;
 }
