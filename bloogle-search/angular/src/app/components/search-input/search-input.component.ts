@@ -20,6 +20,7 @@ export class SearchInputComponent implements OnInit, AfterViewChecked {
   ellipsisApplied: boolean;
   gte: ElasticDateRange;
   private readonly invertedCommasRe = new RegExp(/"(.*?)"/, 'g');
+  private readonly hyphenRe = new RegExp(/-(\w*)/, 'g');
   constructor(public es: ElasticsearchService,
     private location: Location,
     private activatedRoute: ActivatedRoute) {
@@ -55,20 +56,27 @@ export class SearchInputComponent implements OnInit, AfterViewChecked {
   private doSearch(page?: number) {
     this.showError = false;
     if (this.query) {
-      const regexWrapper: RegexWrapper = this.extractMatchingText(this.invertedCommasRe, this.query);
-      console.log('exact', regexWrapper);
+      const invertedCommasRegexWrapper: RegexWrapper = this.extractMatchingText(this.invertedCommasRe, this.query);
+      const hyphenRegexWrapper: RegexWrapper = this.extractMatchingText(this.hyphenRe, invertedCommasRegexWrapper.textReplaced);
+      const matches = invertedCommasRegexWrapper.matches.concat(hyphenRegexWrapper.matches);
+      console.log('exact', hyphenRegexWrapper);
       this.searching = true;
-      this.es.search(regexWrapper.textReplaced, page, this.gte, regexWrapper.matches).subscribe((queryResult: QueryResult) => {
-        if (queryResult.numResults === 0) { // no results
-          this.showError = true;
-        } else {
-          this.ellipsisApplied = false;
-          this.queryResult = queryResult;
-          this.showError = false;
-        }
-        this.location.go(`${routeNames.SEARCH}?q=${this.query}`);
-        this.searching = false;
-      });
+      this.es.search(
+        hyphenRegexWrapper.textReplaced,
+        page,
+        this.gte,
+        invertedCommasRegexWrapper.matches,
+        hyphenRegexWrapper.matches).subscribe((queryResult: QueryResult) => {
+          if (queryResult.numResults === 0) { // no results
+            this.showError = true;
+          } else {
+            this.ellipsisApplied = false;
+            this.queryResult = queryResult;
+            this.showError = false;
+          }
+          this.location.go(`${routeNames.SEARCH}?q=${this.query}`);
+          this.searching = false;
+        });
     }
   }
   private extractMatchingText(re: RegExp, text: string): RegexWrapper {
@@ -86,7 +94,7 @@ export class SearchInputComponent implements OnInit, AfterViewChecked {
     } while (result);
     return <RegexWrapper>{
       valid,
-      textReplaced: text.replace(re, ''),
+      textReplaced: text.replace(re, '').trim(),
       matches: arr
     };
   }

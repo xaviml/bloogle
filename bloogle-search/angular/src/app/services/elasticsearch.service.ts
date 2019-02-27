@@ -15,7 +15,7 @@ export class ElasticsearchService {
   private readonly _index = 'blog';
   private readonly _type = 'doc';
 
-  private query(q: string, num: number, fromNum: number, gte?: ElasticDateRange, matchPhrases?: string[]) {
+  private query(q: string, num: number, fromNum: number, gte?: ElasticDateRange, matchPhrases?: string[], mustNotPhrases?: string) {
     const query: ElasticSearchRequest = {
       'query': {
         'bool': {}
@@ -74,6 +74,21 @@ export class ElasticsearchService {
         });
       }
     }
+    if (mustNotPhrases && mustNotPhrases.length) {
+      query.query.bool.must_not = [];
+      for (const match of mustNotPhrases) {
+        query.query.bool.must_not.push({
+          'match_phrase': {
+            'content': match
+          }
+        });
+        query.query.bool.must_not.push({
+          'match_phrase': {
+            'title': match
+          }
+        });
+      }
+    }
 
     return query;
   }
@@ -87,11 +102,11 @@ export class ElasticsearchService {
 
 
 
-  search(query, page = 0, gte?: ElasticDateRange, matchPhrases?: string[]): Observable<QueryResult> {
+  search(query, page = 0, gte?: ElasticDateRange, matchPhrases?: string[], mustNotPhrases?: string[]): Observable<QueryResult> {
     const p: Promise<any> = this.client.search({
       index: this._index,
       type: this._type,
-      body: this.query(query, this.DEFAULT_NUM_PAGES, page * this.DEFAULT_NUM_PAGES, gte, matchPhrases),
+      body: this.query(query, this.DEFAULT_NUM_PAGES, page * this.DEFAULT_NUM_PAGES, gte, matchPhrases, mustNotPhrases),
     });
     return from(p).pipe(map(this.mapES));
   }

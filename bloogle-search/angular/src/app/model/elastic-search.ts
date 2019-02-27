@@ -77,9 +77,14 @@ export interface Should {
   match_phrase: MatchPhrase;
 }
 
+export interface MustNot {
+  match_phrase: MatchPhrase;
+}
+
 export interface Bool {
   must?: Must[];
   should?: Should[];
+  must_not?: MustNot[];
 }
 
 export interface Query {
