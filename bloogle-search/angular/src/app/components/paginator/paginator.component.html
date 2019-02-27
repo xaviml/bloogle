@@ -1,19 +1,19 @@
 <div class="pagination">
   <ul *ngIf="pager.pages && pager.pages.length" class="pagination">
     <li [hidden]="pager.currentPage === pagerService.FIRST_PAGE">
-      <a (click)="setPage(pagerService.FIRST_PAGE)">First</a>
+      <a (click)="setPage(pagerService.FIRST_PAGE, true)">First</a>
     </li>
     <li [hidden]="pager.currentPage === pagerService.FIRST_PAGE">
-      <a (click)="setPage(pager.currentPage - 1)">Previous</a>
+      <a (click)="setPage(pager.currentPage - 1, true)">Previous</a>
     </li>
     <li *ngFor="let page of pager.pages" [ngClass]="{active:pager.currentPage === page}">
-      <a (click)="setPage(page)">{{page+1}}</a>
+      <a (click)="setPage(page, true)">{{page+1}}</a>
     </li>
     <li [hidden]="(pager.currentPage + 1) === pager.totalPages">
-      <a (click)="setPage(pager.currentPage + 1)">Next</a>
+      <a (click)="setPage(pager.currentPage + 1, true)">Next</a>
     </li>
     <li [hidden]="(pager.currentPage + 1) === pager.totalPages">
-      <a (click)="setPage(pager.totalPages - 1)">Last</a>
+      <a (click)="setPage(pager.totalPages - 1, true)">Last</a>
     </li>
   </ul>
 </div>

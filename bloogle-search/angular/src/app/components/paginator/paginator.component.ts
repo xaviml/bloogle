@@ -26,16 +26,16 @@ export class PaginatorComponent implements OnChanges {
     }
     if (this.numResults !== null && this.resultsPerPage !== null) {
       this.numPages = Array(Math.ceil(this.numResults / this.resultsPerPage)).fill(0).map((x, i) => i);
-      this.setPage(0);
+      this.setPage(0, false);
     }
   }
-  setPage(page: number) {
+  setPage(page: number, emit: boolean) {
     // get pager object from service
     this.pager = this.pagerService.getPager(this.numResults, page);
 
-    // get current page of items
-    // this.pagedItems = this.allItems.slice(this.pager.startIndex, this.pager.endIndex + 1);
-    this.pageClicked.emit(page);
-    window.scroll(0, 0);
+    if (emit) {
+      this.pageClicked.emit(page);
+      window.scroll(0, 0);
+    }
   }
 }
