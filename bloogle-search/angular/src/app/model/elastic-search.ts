@@ -16,6 +16,7 @@ export interface Source {
 
 export interface Highlight {
   content?: string[];
+  title?: string[];
   pre_tags: string[];
   post_tags: string[];
   fields: Fields;
@@ -67,8 +68,18 @@ export interface Must {
   range?: Range;
 }
 
+export interface MatchPhrase {
+  content?: string;
+  title?: string;
+}
+
+export interface Should {
+  match_phrase: MatchPhrase;
+}
+
 export interface Bool {
-  must: Must[];
+  must?: Must[];
+  should?: Should[];
 }
 
 export interface Query {
@@ -78,9 +89,13 @@ export interface Query {
 // tslint:disable-next-line:no-empty-interface
 export interface Content {
 }
+// tslint:disable-next-line:no-empty-interface
+export interface Title {
+}
 
 export interface Fields {
   content: Content;
+  title: Title;
 }
 
 export interface ElasticSearchRequest {

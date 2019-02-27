@@ -45,7 +45,7 @@
       <div class="row">
         <mat-card class="col-xs-12 col-sm-12 m-4" *ngFor="let post of queryResult?.posts">
           <mat-card-header>
-            <mat-card-title><a [href]="post.url" target="_blank">{{post.title}}</a></mat-card-title>
+            <mat-card-title><a [href]="post.url" target="_blank" [innerHTML]="post.title"></a></mat-card-title>
             <mat-card-subtitle><a id="url" [href]="post.url" target="_blank">{{post.url}}</a> </mat-card-subtitle>
             <mat-card-subtitle>{{post.author}}</mat-card-subtitle>
           </mat-card-header>

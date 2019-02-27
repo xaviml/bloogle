@@ -17,6 +17,7 @@ export class SearchInputComponent implements OnInit {
   showError: boolean;
   searching: boolean;
   gte: ElasticDateRange;
+  private readonly invertedCommasRe = new RegExp(/"(.*?)"/, 'g');
   constructor(public es: ElasticsearchService,
     private location: Location,
     private activatedRoute: ActivatedRoute) {
@@ -46,8 +47,10 @@ export class SearchInputComponent implements OnInit {
   private doSearch(page?: number) {
     this.showError = false;
     if (this.query) {
+      const regexWrapper: RegexWrapper = this.extractMatchingText(this.invertedCommasRe, this.query);
+      console.log('exact', regexWrapper);
       this.searching = true;
-      this.es.search(this.query, page, this.gte).subscribe((queryResult: QueryResult) => {
+      this.es.search(regexWrapper.textReplaced, page, this.gte, regexWrapper.matches).subscribe((queryResult: QueryResult) => {
         if (queryResult.numResults === 0) { // no results
           this.showError = true;
         } else {
@@ -59,4 +62,29 @@ export class SearchInputComponent implements OnInit {
       });
     }
   }
+  private extractMatchingText(re: RegExp, text: string): RegexWrapper {
+    const arr: string[] = [];
+    let valid;
+    let result;
+    do {
+      result = re.exec(text);
+      if (result) {
+        arr[arr.length] = result[1];
+      }
+      if (valid === undefined) {
+        valid = result != null;
+      }
+    } while (result);
+    return <RegexWrapper>{
+      valid,
+      textReplaced: text.replace(re, ''),
+      matches: arr
+    };
+  }
+}
+
+interface RegexWrapper {
+  valid: boolean;
+  textReplaced: string;
+  matches: string[];
 }
