@@ -30,23 +30,25 @@ def read_links(filepath):
 connections.create_connection(hosts=['localhost'], port=9200)
 Post.init()
 
-path = os.path.join(options.input, 'links.json')
-files_info = read_links(path)
-
 # for loop through htmls file, calling the parser and elasticsearch
-path = os.path.join(options.input, 'pages', '*')
-filepaths = glob.glob(path)
+path = os.path.join(options.input, '*') + os.path.sep
+folders = glob.glob(path)
 saved_documents = 0
 itered_documents = 0
-for filepath in filepaths:
-    with open(filepath, 'r', encoding="utf-8") as f:
-        filename = filepath.split(os.path.sep)[-1]
-        blogName = filename.split('_')[0]
-        url = files_info[filename]['url']
-        if len(url) <= 512 and not client.exists(index='blog', doc_type='doc', id=url):
-            post = HTMLparser(f.read(), blogName, url)
-            if post is not None:
-                post.save()
-                saved_documents+=1
-        itered_documents += 1
-        print('Saved documents {} out of {}'.format(saved_documents, itered_documents), end='\r')
+for folder in folders:
+    linkspath =  os.path.join(folder, 'links.json')
+    path = os.path.join(folder, 'pages', '*')
+    filepaths = glob.glob(path)
+    files_info = read_links(linkspath)
+    for filepath in filepaths:
+        with open(filepath, 'r', encoding="utf-8") as f:
+            filename = filepath.split(os.path.sep)[-1]
+            blogName = filename.split('_')[0]
+            url = files_info[filename]['url']
+            if len(url) <= 512 and not client.exists(index='blog', doc_type='doc', id=url):
+                post = HTMLparser(f.read(), blogName, url)
+                if post is not None:
+                    post.save()
+                    saved_documents+=1
+            itered_documents += 1
+            print('Saved documents {} out of {}'.format(saved_documents, itered_documents), end='\r')
