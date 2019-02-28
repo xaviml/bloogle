@@ -40,8 +40,7 @@ export class ElasticsearchService {
           'query': q,
           'fields': [
             'content',
-            'publishDate',
-            'publishModified',
+            'title',
             'author'
           ]
         }
