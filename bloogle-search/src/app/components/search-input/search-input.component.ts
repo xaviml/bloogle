@@ -21,6 +21,7 @@ export class SearchInputComponent implements OnInit, AfterViewChecked {
   gte: ElasticDateRange;
   private readonly invertedCommasRe = new RegExp(/"(.*?)"/, 'g');
   private readonly hyphenRe = new RegExp(/-(\w*)/, 'g');
+  private readonly plusRe = new RegExp(/+(\w*)/, 'g');
   constructor(public es: ElasticsearchService,
     private location: Location,
     private activatedRoute: ActivatedRoute) {
@@ -57,13 +58,17 @@ export class SearchInputComponent implements OnInit, AfterViewChecked {
     this.showError = false;
     if (this.query) {
       const invertedCommasRegexWrapper: RegexWrapper = this.extractMatchingText(this.invertedCommasRe, this.query);
-      const hyphenRegexWrapper: RegexWrapper = this.extractMatchingText(this.hyphenRe, invertedCommasRegexWrapper.textReplaced);
+      const plusRegexWrapper: RegexWrapper = this.extractMatchingText(this.plusRe, invertedCommasRegexWrapper.textReplaced);
+      const hyphenRegexWrapper: RegexWrapper = this.extractMatchingText(this.hyphenRe, plusRegexWrapper.textReplaced);
+
+      const matches = invertedCommasRegexWrapper.matches.concat(plusRegexWrapper.matches);
+
       this.searching = true;
       this.es.search(
         hyphenRegexWrapper.textReplaced,
         page,
         this.gte,
-        invertedCommasRegexWrapper.matches,
+        matches,
         hyphenRegexWrapper.matches).subscribe((queryResult: QueryResult) => {
           if (queryResult.numResults === 0) { // no results
             this.showError = true;
