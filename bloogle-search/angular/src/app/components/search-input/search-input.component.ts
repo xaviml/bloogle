@@ -58,8 +58,6 @@ export class SearchInputComponent implements OnInit, AfterViewChecked {
     if (this.query) {
       const invertedCommasRegexWrapper: RegexWrapper = this.extractMatchingText(this.invertedCommasRe, this.query);
       const hyphenRegexWrapper: RegexWrapper = this.extractMatchingText(this.hyphenRe, invertedCommasRegexWrapper.textReplaced);
-      const matches = invertedCommasRegexWrapper.matches.concat(hyphenRegexWrapper.matches);
-      console.log('exact', hyphenRegexWrapper);
       this.searching = true;
       this.es.search(
         hyphenRegexWrapper.textReplaced,

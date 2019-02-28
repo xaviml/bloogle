@@ -15,7 +15,7 @@ export class ElasticsearchService {
   private readonly _index = 'blog';
   private readonly _type = 'doc';
 
-  private query(q: string, num: number, fromNum: number, gte?: ElasticDateRange, matchPhrases?: string[], mustNotPhrases?: string) {
+  private query(q: string, num: number, fromNum: number, gte?: ElasticDateRange, matchPhrases?: string[], mustNotPhrases?: string[]) {
     const query: ElasticSearchRequest = {
       'query': {
         'bool': {}
