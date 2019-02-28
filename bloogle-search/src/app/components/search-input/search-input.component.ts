@@ -21,7 +21,7 @@ export class SearchInputComponent implements OnInit, AfterViewChecked {
   gte: ElasticDateRange;
   private readonly invertedCommasRe = new RegExp(/"(.*?)"/, 'g');
   private readonly hyphenRe = new RegExp(/-(\w*)/, 'g');
-  private readonly plusRe = new RegExp(/+(\w*)/, 'g');
+  private readonly plusRe = new RegExp(/\+(\w*)/, 'g');
   constructor(public es: ElasticsearchService,
     private location: Location,
     private activatedRoute: ActivatedRoute) {
