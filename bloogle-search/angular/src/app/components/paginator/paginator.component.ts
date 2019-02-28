@@ -13,7 +13,7 @@ export class PaginatorComponent implements OnChanges {
   @Output() pageClicked: EventEmitter<number> = new EventEmitter();
 
   numPages: number[];
-  pager: Object = {};
+  pager: any = {};
   constructor(public pagerService: PagerService) {
   }
   ngOnChanges({ numResultsChanges, resultsPerPageChanges }:
