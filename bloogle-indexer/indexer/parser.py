@@ -46,6 +46,7 @@ def HTMLparser(page, blog, url):
         meta={'id':url},
         title=title,
         content=content,
+        rawContent=content,
         author=author,
         datePublished=datePublished,
         dateModified=dateModified,

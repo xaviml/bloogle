@@ -5,6 +5,7 @@ from elasticsearch_dsl import Document, Date, Nested, Boolean, \
 class Post(Document):
     title = Text(fields={'raw': Keyword()}, analyzer='english')
     content = Text(analyzer='english')
+    rawContent = Text()
     author = Text(fields={'raw': Keyword()}, analyzer='english')
     datePublished = Date()
     dateModified = Date()

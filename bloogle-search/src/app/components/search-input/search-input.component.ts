@@ -1,5 +1,5 @@
 import { ElasticsearchService, QueryResult } from './../../services/elasticsearch.service';
-import { Component, OnInit, AfterViewInit, AfterViewChecked } from '@angular/core';
+import { Component, OnInit, AfterViewChecked } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 import { routeNames } from 'src/app/route-names';
@@ -48,7 +48,15 @@ export class SearchInputComponent implements OnInit, AfterViewChecked {
       this.ellipsisApplied = true;
     }
   }
-  search() {
+  changeModel() {
+    if (this.queryResult) {
+      this.queryResult.suggestedNonHtml = null;
+    }
+  }
+  search(query?: string) {
+    if (query) {
+      this.query = query;
+    }
     this.doSearch();
   }
   pageClicked(page) {

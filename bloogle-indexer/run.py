@@ -28,7 +28,9 @@ def read_links(filepath):
     return out 
 
 connections.create_connection(hosts=['localhost'], port=9200)
-Post.init()
+if not client.indices.exists(index='blog'):
+    Post.init()
+    
 
 # for loop through htmls file, calling the parser and elasticsearch
 path = os.path.join(options.input, '*') + os.path.sep

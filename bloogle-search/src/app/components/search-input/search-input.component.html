@@ -4,7 +4,7 @@
       <img src="../../../assets/bloogle.png" width="92" height="30">
     </a>
     <div class="col-auto wrapper">
-      <input [(ngModel)]="query" name="query">
+      <input [(ngModel)]="query" name="query" (ngModelChange)="changeModel()">
       <button class="search-btn" aria-label="Bloogle Search" type="submit" (click)="search()">
         <div class="search-btn-sub-1">
           <span class="search-btn-sub-2">
@@ -40,7 +40,10 @@
     </div>
     <ng-template #noError>
       <div id="resultStats" class="mt-2">
-        About {{queryResult?.numResults | number:'1.'}} results ({{queryResult?.time}} ms)
+        <span>About {{queryResult?.numResults | number:'1.'}} results ({{queryResult?.time}} ms)</span>
+        <div class="font-size-18 mt-2" *ngIf="queryResult?.suggestedNonHtml && queryResult?.suggestedNonHtml != query">
+          Did you mean: <a (click)="search(queryResult?.suggestedNonHtml)" [innerHTML]="queryResult?.suggestedHtml"></a>
+        </div>
       </div>
       <div class="row">
         <mat-card class="col-xs-12 col-sm-12 m-4" *ngFor="let post of queryResult?.posts">

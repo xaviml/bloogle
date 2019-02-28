@@ -31,7 +31,15 @@ export class ElasticsearchService {
         }
       },
       'from': fromNum,
-      'size': num
+      'size': num,
+      'suggest': {
+        'mytermsuggester': {
+          'text': q,
+          'term': {
+            'field': 'rawContent',
+          },
+        }
+      }
     };
     if (q) {
       query.query.bool.must = [];
@@ -40,7 +48,8 @@ export class ElasticsearchService {
           'query': q,
           'fields': [
             'content',
-            'title',
+            'publishDate',
+            'publishModified',
             'author'
           ]
         }
@@ -119,6 +128,15 @@ export class ElasticsearchService {
   }
 
   private mapES(r: ElasticSearchResult): QueryResult {
+    function getTermSuggester(r2: ElasticSearchResult, tags: boolean) {
+      return r2.suggest.mytermsuggester.map(suggester => {
+        if (tags) {
+          return suggester.options.length ? '<strong><em>' + suggester.options[0].text + '</em></strong>' : suggester.text;
+        }
+        return suggester.options.length ? suggester.options[0].text : suggester.text;
+
+      }).join(' ').trim();
+    }
     const queryResult = new QueryResult();
     queryResult.time = r.took;
     queryResult.numResults = r.hits.total;
@@ -139,6 +157,8 @@ export class ElasticsearchService {
       }
       return p;
     });
+    queryResult.suggestedHtml = getTermSuggester(r, true);
+    queryResult.suggestedNonHtml = getTermSuggester(r, false);
     return queryResult;
   }
 }
@@ -147,4 +167,6 @@ export class QueryResult {
   time: number;
   numResults: number;
   posts: Post[];
+  suggestedHtml: string;
+  suggestedNonHtml: string;
 }

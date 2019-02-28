@@ -42,6 +42,7 @@ export interface ElasticSearchResult {
   timed_out: boolean;
   _shards: Shards;
   hits: Hits;
+  suggest: SuggestResponse;
 }
 
 export interface MultiMatch {
@@ -103,9 +104,34 @@ export interface Fields {
   title: Title;
 }
 
+export interface Term {
+  field: string;
+}
+
+export interface Option {
+  text: string;
+  score: number;
+  freq: number;
+}
+
+export interface Mytermsuggester {
+  text: string;
+  term: Term;
+  options?: Option[];
+}
+
+export interface Suggest {
+  mytermsuggester: Mytermsuggester;
+}
+
+export interface SuggestResponse {
+  mytermsuggester: Mytermsuggester[];
+}
+
 export interface ElasticSearchRequest {
   query: Query;
   highlight: Highlight;
   from: number;
   size: number;
+  suggest: Suggest;
 }
