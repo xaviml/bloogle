@@ -15,7 +15,8 @@ export class ElasticsearchService {
   private readonly _index = 'blog';
   private readonly _type = 'doc';
 
-  private query(q: string, num: number, fromNum: number, gte?: ElasticDateRange, matchPhrases?: string[], mustNotPhrases?: string[]) {
+  private query(q: string, fullquery: string,
+    num: number, fromNum: number, gte?: ElasticDateRange, matchPhrases?: string[], mustNotPhrases?: string[]) {
     const query: ElasticSearchRequest = {
       'query': {
         'bool': {}
@@ -34,7 +35,7 @@ export class ElasticsearchService {
       'size': num,
       'suggest': {
         'mytermsuggester': {
-          'text': q,
+          'text': fullquery,
           'term': {
             'field': 'rawContent',
           },
@@ -110,11 +111,11 @@ export class ElasticsearchService {
 
 
 
-  search(query, page = 0, gte?: ElasticDateRange, matchPhrases?: string[], mustNotPhrases?: string[]): Observable<QueryResult> {
+  search(query, fullquery, page = 0, gte?: ElasticDateRange, matchPhrases?: string[], mustNotPhrases?: string[]): Observable<QueryResult> {
     const p: Promise<any> = this.client.search({
       index: this._index,
       type: this._type,
-      body: this.query(query, this.DEFAULT_NUM_PAGES, page * this.DEFAULT_NUM_PAGES, gte, matchPhrases, mustNotPhrases),
+      body: this.query(query, fullquery, this.DEFAULT_NUM_PAGES, page * this.DEFAULT_NUM_PAGES, gte, matchPhrases, mustNotPhrases),
     });
     return from(p).pipe(map(this.mapES));
   }
@@ -122,7 +123,7 @@ export class ElasticsearchService {
     const p: Promise<ElasticSearchResult> = this.client.search({
       index: this._index,
       type: this._type,
-      body: this.query(query, 1, 0),
+      body: this.query(query, query, 1, 0),
     });
     return from(p).pipe(map(this.mapES));
   }

@@ -13,6 +13,7 @@ import { ellipsis } from 'ellipsed';
 export class SearchInputComponent implements OnInit, AfterViewChecked {
   ElasticDateRange = ElasticDateRange;
   query: string;
+  originalQuery: string;
   lucky: boolean;
   queryResult: QueryResult;
   showError: boolean;
@@ -49,9 +50,9 @@ export class SearchInputComponent implements OnInit, AfterViewChecked {
     }
   }
   changeModel() {
-    if (this.queryResult) {
-      this.queryResult.suggestedNonHtml = null;
-    }
+    // if (this.queryResult) {
+    //   this.queryResult.suggestedNonHtml = null;
+    // }
   }
   search(query?: string) {
     if (query) {
@@ -72,17 +73,19 @@ export class SearchInputComponent implements OnInit, AfterViewChecked {
       const matches = invertedCommasRegexWrapper.matches.concat(plusRegexWrapper.matches);
 
       this.searching = true;
+      this.originalQuery = this.query;
       this.es.search(
         hyphenRegexWrapper.textReplaced,
+        this.query,
         page,
         this.gte,
         matches,
         hyphenRegexWrapper.matches).subscribe((queryResult: QueryResult) => {
-          if (queryResult.numResults === 0) { // no results
+          this.queryResult = queryResult;
+          if (this.queryResult.numResults === 0) { // no results
             this.showError = true;
           } else {
             this.ellipsisApplied = false;
-            this.queryResult = queryResult;
             this.showError = false;
           }
           this.location.go(`${routeNames.SEARCH}?q=${this.query}`);

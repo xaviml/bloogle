@@ -34,14 +34,17 @@
   </div>
   <div [hidden]="searching">
     <div *ngIf="showError; else noError">
+      <div class="font-size-18 mt-2" *ngIf="queryResult?.suggestedNonHtml && queryResult?.suggestedNonHtml != queryResult?.suggestedHtml">
+        Did you mean: <a (click)="search(queryResult?.suggestedNonHtml)" [innerHTML]="queryResult?.suggestedHtml"></a>
+      </div>
       <div class="row justify-content-center mt-3">
-        No results found for &nbsp;<strong>"{{query}}".</strong>
+        No results found for &nbsp;<strong>"{{originalQuery}}".</strong>
       </div>
     </div>
     <ng-template #noError>
       <div id="resultStats" class="mt-2">
         <span>About {{queryResult?.numResults | number:'1.'}} results ({{queryResult?.time}} ms)</span>
-        <div class="font-size-18 mt-2" *ngIf="queryResult?.suggestedNonHtml && queryResult?.suggestedNonHtml != query">
+        <div class="font-size-18 mt-2" *ngIf="queryResult?.suggestedNonHtml && queryResult?.suggestedNonHtml != queryResult?.suggestedHtml">
           Did you mean: <a (click)="search(queryResult?.suggestedNonHtml)" [innerHTML]="queryResult?.suggestedHtml"></a>
         </div>
       </div>
@@ -56,7 +59,7 @@
             <p [innerHTML]="post.content" class="content" [ngClass]="{doesNotHaveHtml:!post.contentHasHtml}"></p>
           </mat-card-content>
           <mat-card-footer class="mx-3 mt-2">
-              <mat-card-subtitle>{{post.datePublished | date:'d LLL yyyy'}}</mat-card-subtitle>
+            <mat-card-subtitle>{{post.datePublished | date:'d LLL yyyy'}}</mat-card-subtitle>
           </mat-card-footer>
         </mat-card>
       </div>
