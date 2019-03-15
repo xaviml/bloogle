@@ -4,7 +4,7 @@
       <img src="../../../assets/bloogle.png" width="92" height="30">
     </a>
     <div class="col-auto wrapper">
-      <input [(ngModel)]="query" name="query" (ngModelChange)="changeModel()">
+      <input [(ngModel)]="query" name="query">
       <button class="search-btn" aria-label="Bloogle Search" type="submit" (click)="search()">
         <div class="search-btn-sub-1">
           <span class="search-btn-sub-2">
@@ -34,7 +34,8 @@
   </div>
   <div [hidden]="searching">
     <div *ngIf="showError; else noError">
-      <div class="font-size-18 mt-2" *ngIf="queryResult?.suggestedNonHtml && queryResult?.suggestedNonHtml != queryResult?.suggestedHtml">
+      <div class="font-size-18 mt-2"
+        *ngIf="queryResult?.suggestedNonHtml && queryResult?.suggestedNonHtml != queryResult?.suggestedHtml">
         Did you mean: <a (click)="search(queryResult?.suggestedNonHtml)" [innerHTML]="queryResult?.suggestedHtml"></a>
       </div>
       <div class="row justify-content-center mt-3">
@@ -44,7 +45,8 @@
     <ng-template #noError>
       <div id="resultStats" class="mt-2">
         <span>About {{queryResult?.numResults | number:'1.'}} results ({{queryResult?.time}} ms)</span>
-        <div class="font-size-18 mt-2" *ngIf="queryResult?.suggestedNonHtml && queryResult?.suggestedNonHtml != queryResult?.suggestedHtml">
+        <div class="font-size-18 mt-2"
+          *ngIf="queryResult?.suggestedNonHtml && queryResult?.suggestedNonHtml != queryResult?.suggestedHtml">
           Did you mean: <a (click)="search(queryResult?.suggestedNonHtml)" [innerHTML]="queryResult?.suggestedHtml"></a>
         </div>
       </div>
@@ -58,8 +60,23 @@
           <mat-card-content>
             <p [innerHTML]="post.content" class="content" [ngClass]="{doesNotHaveHtml:!post.contentHasHtml}"></p>
           </mat-card-content>
-          <mat-card-footer class="mx-3 mt-2">
-            <mat-card-subtitle>{{post.datePublished | date:'d LLL yyyy'}}</mat-card-subtitle>
+          <mat-card-footer class="mx-3 mt-2 mb-1">
+            <div class="row">
+              <div class="col">
+                <mat-card-subtitle>{{post.datePublished | date:'d LLL yyyy'}}</mat-card-subtitle>
+              </div>
+              <div class="col-auto">
+                <mat-button-toggle-group>
+                  <mat-button-toggle value="left" matTooltip="It is relevant" (click)="onChosenRelevancy(true, post)">
+                    <mat-icon class="green">thumb_up</mat-icon>
+                  </mat-button-toggle>
+                  <mat-button-toggle value="center" matTooltip="It is NOT relevant"
+                    (click)="onChosenRelevancy(false, post)">
+                    <mat-icon class="red">thumb_down</mat-icon>
+                  </mat-button-toggle>
+                </mat-button-toggle-group>
+              </div>
+            </div>
           </mat-card-footer>
         </mat-card>
       </div>

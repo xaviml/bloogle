@@ -17,7 +17,9 @@ import {
   MatRadioModule,
   MatSelectModule,
   MatButtonToggleModule,
-  MatSliderModule
+  MatSliderModule,
+  MatTooltipModule,
+  MatSnackBarModule
 } from '@angular/material';
 import { MatMomentDateModule } from '@angular/material-moment-adapter';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -47,6 +49,8 @@ const modules = [
   MatStepperModule,
   MatPaginatorModule,
   MatCardModule,
+  MatTooltipModule,
+  MatSnackBarModule,
   HttpClientModule,
   BrowserAnimationsModule,
 ];

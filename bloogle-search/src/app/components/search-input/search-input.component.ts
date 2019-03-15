@@ -1,3 +1,4 @@
+import { Post } from './../../model/post';
 import { ElasticsearchService, QueryResult } from './../../services/elasticsearch.service';
 import { Component, OnInit, AfterViewChecked } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
@@ -5,6 +6,7 @@ import { Location } from '@angular/common';
 import { routeNames } from 'src/app/route-names';
 import { ElasticDateRange } from 'src/app/model/elastic-search';
 import { ellipsis } from 'ellipsed';
+import { MatSnackBar } from '@angular/material';
 @Component({
   selector: 'app-search-input',
   templateUrl: './search-input.component.html',
@@ -25,7 +27,8 @@ export class SearchInputComponent implements OnInit, AfterViewChecked {
   private readonly plusRe = new RegExp(/\+(\w*)/, 'g');
   constructor(public es: ElasticsearchService,
     private location: Location,
-    private activatedRoute: ActivatedRoute) {
+    private activatedRoute: ActivatedRoute,
+    private snackBar: MatSnackBar) {
     this.ellipsisApplied = true;
     this.gte = null;
     this.showError = false;
@@ -49,10 +52,11 @@ export class SearchInputComponent implements OnInit, AfterViewChecked {
       this.ellipsisApplied = true;
     }
   }
-  changeModel() {
-    // if (this.queryResult) {
-    //   this.queryResult.suggestedNonHtml = null;
-    // }
+  onChosenRelevancy(isRelevant: boolean, post: Post) {
+    console.log(isRelevant, this.query, post);
+    this.snackBar.open('Thank you for your feedback!', 'Close', {
+      duration: 2000,
+    });
   }
   search(query?: string) {
     if (query) {
