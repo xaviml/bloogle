@@ -6,7 +6,7 @@ from indexer.post import Post
 from elasticsearch_dsl import Search
 
 def isPostOnline(url):
-    r = requests.head(url)
+    r = requests.get(url)
     return  r.status_code >= 200 and r.status_code < 400, r.status_code
 
 def deletePost(url):
