@@ -31,6 +31,8 @@
         Past week
       </mat-option>
     </mat-select>
+    <a id="downloadAnchorElem" class="d-none"></a>
+    <button mat-button type="button" color="primary" *ngIf="validation" (click)="download()">Download validation</button>
   </div>
   <div [hidden]="searching">
     <div *ngIf="showError; else noError">

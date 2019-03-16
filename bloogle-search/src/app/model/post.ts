@@ -7,4 +7,5 @@ export class Post {
   url: string;
 
   contentHasHtml: boolean;
+  rank: number;
 }
