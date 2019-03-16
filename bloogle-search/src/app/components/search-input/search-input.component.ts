@@ -19,6 +19,7 @@ export class SearchInputComponent implements OnInit, AfterViewChecked {
   originalQuery: string;
   lucky: boolean;
   queryResult: QueryResult;
+  validation: boolean;
   showError: boolean;
   searching: boolean;
   ellipsisApplied: boolean;
@@ -37,6 +38,7 @@ export class SearchInputComponent implements OnInit, AfterViewChecked {
     this.activatedRoute.queryParams.subscribe(queryParamsObj => {
       this.query = queryParamsObj['q'];
       this.lucky = queryParamsObj['lucky'] === 'true';
+      this.validation = queryParamsObj['validation'] === 'true';
       if (this.lucky) {
         this.showError = true;
       } else {
@@ -97,7 +99,7 @@ export class SearchInputComponent implements OnInit, AfterViewChecked {
             this.ellipsisApplied = false;
             this.showError = false;
           }
-          this.location.go(`${routeNames.SEARCH}?q=${this.query}`);
+          this.location.go(`${routeNames.SEARCH}?q=${this.query}&validation=${this.validation}`);
           this.searching = false;
         });
     }
