@@ -7,6 +7,7 @@ import { routeNames } from 'src/app/route-names';
 import { ElasticDateRange } from 'src/app/model/elastic-search';
 import { ellipsis } from 'ellipsed';
 import { MatSnackBar } from '@angular/material';
+import { RelevancyService } from 'src/app/services/relevancy.service';
 @Component({
   selector: 'app-search-input',
   templateUrl: './search-input.component.html',
@@ -28,7 +29,8 @@ export class SearchInputComponent implements OnInit, AfterViewChecked {
   constructor(public es: ElasticsearchService,
     private location: Location,
     private activatedRoute: ActivatedRoute,
-    private snackBar: MatSnackBar) {
+    private snackBar: MatSnackBar,
+    private relevancyService: RelevancyService) {
     this.ellipsisApplied = true;
     this.gte = null;
     this.showError = false;
@@ -53,10 +55,13 @@ export class SearchInputComponent implements OnInit, AfterViewChecked {
     }
   }
   onChosenRelevancy(isRelevant: boolean, post: Post) {
-    console.log(isRelevant, this.query, post);
+    this.relevancyService.addRelevancy(this.query, isRelevant, post);
     this.snackBar.open('Thank you for your feedback!', 'Close', {
       duration: 2000,
     });
+  }
+  saveRelevancy() {
+    this.relevancyService.saveRelevancies();
   }
   search(query?: string) {
     if (query) {
