@@ -31,6 +31,8 @@
         Past week
       </mat-option>
     </mat-select>
+    <a id="downloadAnchorElem" class="d-none"></a>
+    <button mat-button type="button" color="primary" *ngIf="validation" (click)="download()">Download validation</button>
   </div>
   <div [hidden]="searching">
     <div *ngIf="showError; else noError">
@@ -54,7 +56,7 @@
         <mat-card class="col-xs-12 col-sm-12 m-3 pl-0" *ngFor="let post of queryResult?.posts">
           <div class="row">
             <div [class]="validation ? 'col-10 pr-0':'col-12'">
-              <mat-card-header style="margin-left: 0px !important">
+              <mat-card-header>
                 <mat-card-title class="mb-2"><a [href]="post.url" target="_blank" [innerHTML]="post.title"></a>
                 </mat-card-title>
                 <mat-card-subtitle class="mb-2"><a id="url" [href]="post.url" target="_blank">{{post.url}}</a>

@@ -117,7 +117,7 @@ export class ElasticsearchService {
       type: this._type,
       body: this.query(query, fullquery, this.DEFAULT_NUM_PAGES, page * this.DEFAULT_NUM_PAGES, gte, matchPhrases, mustNotPhrases),
     });
-    return from(p).pipe(map(this.mapES));
+    return from(p).pipe(map(r => this.mapES(r, page, this.DEFAULT_NUM_PAGES)));
   }
   searchOne(query): Observable<QueryResult> {
     const p: Promise<ElasticSearchResult> = this.client.search({
@@ -125,10 +125,10 @@ export class ElasticsearchService {
       type: this._type,
       body: this.query(query, query, 1, 0),
     });
-    return from(p).pipe(map(this.mapES));
+    return from(p).pipe(map(r => this.mapES(r, 0, this.DEFAULT_NUM_PAGES)));
   }
 
-  private mapES(r: ElasticSearchResult): QueryResult {
+  private mapES(r: ElasticSearchResult, page: number, defaultNumPages: number): QueryResult {
     function getTermSuggester(r2: ElasticSearchResult, tags: boolean) {
       return r2.suggest.mytermsuggester.map(suggester => {
         if (tags) {
@@ -141,7 +141,7 @@ export class ElasticsearchService {
     const queryResult = new QueryResult();
     queryResult.time = r.took;
     queryResult.numResults = r.hits.total;
-    queryResult.posts = r.hits.hits.map(item => {
+    queryResult.posts = r.hits.hits.map((item, index) => {
       const p: Post = Object.assign(new Post(), item._source);
       if (item.highlight) {
         if (item.highlight.content) {
@@ -156,6 +156,7 @@ export class ElasticsearchService {
           }
         }
       }
+      p.rank = index + page * defaultNumPages;
       return p;
     });
     queryResult.suggestedHtml = getTermSuggester(r, true);
