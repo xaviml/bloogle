@@ -18,6 +18,8 @@ The queries will be given to the assessor by the Bloogle team. However, is essen
 - **Rule out terms.** It excludes a word by adding a prepended hyphen. E.g.: Machine learning -deep
 - **Mandatory term.** It includes a word by adding a prepended plus sign. E.g.: Machine learning +deep
 
+The assessor will judge documents using Bloogle in validation mode, so there will be 2 buttons for each result to judge relevancy.
+
 ### Queries
 These are the evaluated queries:
 - machine learning
@@ -45,3 +47,21 @@ Average precision (AP)
 #### User-oriented evaluation
 DCG
 Normalized DCG
+
+## Checker
+Each assessor has a validation output (JSON format). The script checker.py will check they all are consistent in terms of queries and documents judged.
+
+### Run
+~~~
+python checker.py
+~~~
+No need of parameters, it will read from the _validation_ folder.
+
+## Cohen's kappa coefficient
+To ensure the reliability of the judged documents, we compute the cohen's kappa coefficient for the inter-assessor agreement. This coefficient will tell us how reliable the judgments are and it is only computable between two assessors. In case of having more than two assessors, it computes the average of the pairwise coefficients.
+
+### Run
+~~~
+python kappa_coefficient.py
+~~~
+No need of parameters, it will read from the _validation_ folder.
