@@ -18,7 +18,7 @@ def check(data, filename):
 
 
 if __name__ == "__main__":
-    paths = glob(os.path.join('validations', '*'))
+    paths = glob(os.path.join('validations', 'assessor_*'))
     for filename in paths:
         with open(filename) as f:
             data = json.load(f)

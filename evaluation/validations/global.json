@@ -1,0 +1,554 @@
+{
+    "queries": [
+        {
+            "data": [
+                {
+                    "relevant": true,
+                    "url": "https://medium.com/@eric_yates/clarity-around-ai-language-2dc16fdb6e82",
+                    "rank": 0
+                },
+                {
+                    "relevant": true,
+                    "url": "https://medium.com/xanaduai/quantum-machine-learning-1-0-76a525c8cf69",
+                    "rank": 1
+                },
+                {
+                    "relevant": true,
+                    "url": "https://medium.com/emerging-technologies-india/how-machine-learning-can-transform-it-services-363f80857e6d",
+                    "rank": 2
+                },
+                {
+                    "relevant": true,
+                    "url": "https://medium.com/meta-design-ideas/exploring-python-ecosystem-for-machine-learning-things-you-should-know-2a1ca32c8409",
+                    "rank": 3
+                },
+                {
+                    "relevant": false,
+                    "url": "https://www.wired.com/story/google-amazon-find-not-everyone-is-ready-for-ai/",
+                    "rank": 4
+                },
+                {
+                    "relevant": true,
+                    "url": "https://medium.com/@LearnDataSci/top-5-machine-learning-courses-for-2019-8a259572686e",
+                    "rank": 5
+                },
+                {
+                    "relevant": true,
+                    "url": "https://medium.com/@pedromdd/ten-myths-about-machine-learning-d888b48334a3",
+                    "rank": 6
+                },
+                {
+                    "relevant": false,
+                    "url": "https://medium.com/fnplus/jargon-busting-a-journey-towards-ai-e68a3e08c90d",
+                    "rank": 7
+                },
+                {
+                    "relevant": true,
+                    "url": "https://gizmodo.com/the-8-signs-that-machine-learning-will-automate-some-or-1831853145",
+                    "rank": 8
+                },
+                {
+                    "relevant": false,
+                    "url": "https://techcrunch.com/2018/09/07/darpa-announces-2b-investment-in-ai/",
+                    "rank": 9
+                }
+            ],
+            "query": "machine learning"
+        },
+        {
+            "data": [
+                {
+                    "relevant": true,
+                    "url": "https://medium.com/@LearnDataSci/top-5-machine-learning-courses-for-2019-8a259572686e",
+                    "rank": 0
+                },
+                {
+                    "relevant": false,
+                    "url": "https://medium.com/machine-learning-in-practice/my-curated-list-of-ai-and-machine-learning-resources-from-around-the-web-9a97823b8524",
+                    "rank": 1
+                },
+                {
+                    "relevant": true,
+                    "url": "https://techcrunch.com/2016/09/27/udacity-wants-to-get-you-a-job-in-the-nascent-vr-industry/",
+                    "rank": 2
+                },
+                {
+                    "relevant": false,
+                    "url": "https://techcrunch.com/2016/07/08/diy-co-launches-jam-to-help-kids-learn-what-they-dont-in-school-with-a-little-help-from-cartoon-network/",
+                    "rank": 3
+                },
+                {
+                    "relevant": false,
+                    "url": "https://medium.com/@ulikppen/how-algorithms-form-journalism-my-year-at-nieman-harvard-and-mit-28747ea9e348",
+                    "rank": 4
+                },
+                {
+                    "relevant": false,
+                    "url": "https://www.wired.com/2016/09/project-loon-google-brings-ai-skies/",
+                    "rank": 5
+                },
+                {
+                    "relevant": false,
+                    "url": "https://www.wired.com/story/google-amazon-find-not-everyone-is-ready-for-ai/",
+                    "rank": 6
+                },
+                {
+                    "relevant": false,
+                    "url": "https://gizmodo.com/facebook-reportedly-wants-to-use-ai-to-predict-your-fut-1825245517",
+                    "rank": 7
+                },
+                {
+                    "relevant": false,
+                    "url": "https://medium.com/@didolores/8-online-teaching-platforms-that-will-make-you-want-to-teach-online-1b9b23dc2503",
+                    "rank": 8
+                },
+                {
+                    "relevant": false,
+                    "url": "https://www.wired.com/2017/06/ai-revolution-bigger-google-facebook-microsoft/",
+                    "rank": 9
+                }
+            ],
+            "query": "machine learning online courses"
+        },
+        {
+            "data": [
+                {
+                    "relevant": true,
+                    "url": "https://gizmodo.com/gratuitous-fruit-on-fruit-violence-in-slow-motion-is-li-1823608968",
+                    "rank": 0
+                },
+                {
+                    "relevant": true,
+                    "url": "https://steemit.com/fruit/@mdmrakash/eat-fruits-that-reduce-fat-24-02-2019",
+                    "rank": 1
+                },
+                {
+                    "relevant": false,
+                    "url": "https://steemit.com/guava/@monirrohan/guava-is-a-known-fruit-of-bangladesh-the-benefits-of-guava-fruit-are-many",
+                    "rank": 2
+                },
+                {
+                    "relevant": false,
+                    "url": "https://steemit.com/esteem/@sdin/the-benefits-of-eating-pineapple-fruit-70f1cfa88b9a1",
+                    "rank": 3
+                },
+                {
+                    "relevant": false,
+                    "url": "https://www.wired.com/2010/04/fruit-ninja-slice-dice-on-the-iphone/",
+                    "rank": 4
+                },
+                {
+                    "relevant": false,
+                    "url": "https://steemit.com/animal/@zubir01/fruits-that-can-be-fed-by-birds",
+                    "rank": 5
+                },
+                {
+                    "relevant": false,
+                    "url": "https://steemit.com/featuring-antipolo/@steemph.antipolo/tropical-fruits-that-marked-antipolo-s-identity",
+                    "rank": 6
+                },
+                {
+                    "relevant": false,
+                    "url": "https://steemit.com/esteem/@syahruddin/manisan-buah-kecapi-sentul-or-kecapi-fruit",
+                    "rank": 7
+                },
+                {
+                    "relevant": false,
+                    "url": "https://steemit.com/food/@abduhawab/durian-the-most-favorite-fruit-in-southeast-asia",
+                    "rank": 8
+                },
+                {
+                    "relevant": false,
+                    "url": "https://steemit.com/life/@fruitarianism/trying-the-extraordinary-durian-fruit-for-the-first-time-video",
+                    "rank": 9
+                }
+            ],
+            "query": "\"apple\" +fruit -ios"
+        },
+        {
+            "data": [
+                {
+                    "relevant": true,
+                    "url": "https://www.theverge.com/2014/10/20/7013369/ios-8-1-download-features",
+                    "rank": 0
+                },
+                {
+                    "relevant": true,
+                    "url": "https://techcrunch.com/2018/06/04/apple-introduces-ios-12/",
+                    "rank": 1
+                },
+                {
+                    "relevant": true,
+                    "url": "https://techcrunch.com/2018/06/04/with-ios-12-apple-focuses-on-performance/",
+                    "rank": 2
+                },
+                {
+                    "relevant": true,
+                    "url": "https://techcrunch.com/2018/06/04/apple-is-bringing-the-best-of-ios-to-macos/",
+                    "rank": 3
+                },
+                {
+                    "relevant": true,
+                    "url": "https://gizmodo.com/what-to-expect-when-youre-expecting-wwdc-2018-1826455289",
+                    "rank": 4
+                },
+                {
+                    "relevant": true,
+                    "url": "https://www.theverge.com/2012/3/7/2852262/apple-iwork-ios-new-ipad-update",
+                    "rank": 5
+                },
+                {
+                    "relevant": true,
+                    "url": "https://gizmodo.com/ios-11-is-so-broken-that-apple-is-reportedly-delaying-f-1822555719",
+                    "rank": 6
+                },
+                {
+                    "relevant": true,
+                    "url": "https://www.wired.com/2014/11/ios-8-buggiest/",
+                    "rank": 7
+                },
+                {
+                    "relevant": true,
+                    "url": "https://medium.com/@appetiser/apple-is-planning-on-merging-ios-and-macos-apps-by-2021-b4187661e890",
+                    "rank": 8
+                },
+                {
+                    "relevant": true,
+                    "url": "https://www.theverge.com/2015/6/8/8730557/apple-ios9-release-wwdc-2015",
+                    "rank": 9
+                }
+            ],
+            "query": "\"apple\" -fruit +ios"
+        },
+        {
+            "data": [
+                {
+                    "relevant": true,
+                    "url": "https://medium.com/@rosaria.silipo/deep-learning-with-minimum-coding-d87550c62d85",
+                    "rank": 0
+                },
+                {
+                    "relevant": true,
+                    "url": "https://medium.com/brasil-ai/detec%C3%A7%C3%A3o-de-objetos-utilizando-docker-729b3ddddace",
+                    "rank": 1
+                },
+                {
+                    "relevant": true,
+                    "url": "https://medium.com/meta-design-ideas/exploring-python-ecosystem-for-machine-learning-things-you-should-know-2a1ca32c8409",
+                    "rank": 2
+                },
+                {
+                    "relevant": true,
+                    "url": "https://medium.com/@hiromi_suenaga/deep-learning-2-part-1-lesson-5-dd904506bee8",
+                    "rank": 3
+                },
+                {
+                    "relevant": true,
+                    "url": "https://medium.com/@ageitgey/machine-learning-is-fun-part-4-modern-face-recognition-with-deep-learning-c3cffc121d78",
+                    "rank": 4
+                },
+                {
+                    "relevant": true,
+                    "url": "https://medium.com/@akeskiner/getting-started-w-tensorflow-mnist-dataset-part-i-5a6d481a8b28",
+                    "rank": 5
+                },
+                {
+                    "relevant": false,
+                    "url": "https://steemit.com/deep-learning/@cristi/lightnet-python-interface-to-darknet-repo",
+                    "rank": 6
+                },
+                {
+                    "relevant": true,
+                    "url": "https://medium.com/@vivianamarquez/north-bay-python-2018-my-highlights-626bebe04ab5",
+                    "rank": 7
+                },
+                {
+                    "relevant": false,
+                    "url": "https://medium.com/@LearnDataSci/top-5-machine-learning-courses-for-2019-8a259572686e",
+                    "rank": 8
+                },
+                {
+                    "relevant": false,
+                    "url": "https://medium.com/@ReonSaji/a-list-of-best-best-python-libraries-eef0b156e875",
+                    "rank": 9
+                }
+            ],
+            "query": "\"deep learning\" python"
+        },
+        {
+            "data": [
+                {
+                    "relevant": true,
+                    "url": "https://medium.com/@PurpleGreenLemon/is-react-just-a-fad-564531652900",
+                    "rank": 0
+                },
+                {
+                    "relevant": true,
+                    "url": "https://medium.com/@codingfriend/why-vue-2-beats-angular-2-and-react-cfb709b92c59",
+                    "rank": 1
+                },
+                {
+                    "relevant": true,
+                    "url": "https://medium.com/@PurpleGreenLemon/why-i-decided-to-build-my-mpv-in-angular-rather-than-react-or-vue-582312207105",
+                    "rank": 2
+                },
+                {
+                    "relevant": true,
+                    "url": "https://medium.com/javascript-scene/top-javascript-frameworks-topics-to-learn-in-2017-700a397b711",
+                    "rank": 3
+                },
+                {
+                    "relevant": true,
+                    "url": "https://medium.com/@PurpleGreenLemon/what-i-learned-from-learning-react-in-2-nights-after-years-of-working-with-angular-64fafb77dadf",
+                    "rank": 4
+                },
+                {
+                    "relevant": true,
+                    "url": "https://medium.com/@abduncan0/we-chose-reactjs-over-angular-4-876aeefa1d3c",
+                    "rank": 5
+                },
+                {
+                    "relevant": true,
+                    "url": "https://medium.com/cooper-press/the-18-most-popular-react-links-so-far-in-2016-b3492c0d9f03",
+                    "rank": 6
+                },
+                {
+                    "relevant": false,
+                    "url": "https://medium.com/front-end-weekly/comparison-between-ionic-4-vs-ionic-3-d51d7d39005",
+                    "rank": 7
+                },
+                {
+                    "relevant": true,
+                    "url": "https://medium.com/codingthesmartway-com-blog/the-2018-roadmap-to-fullstack-web-development-8884ff02557a",
+                    "rank": 8
+                },
+                {
+                    "relevant": false,
+                    "url": "https://medium.com/devschacht/the-state-of-javascript-2018-the-view-on-vue-b1606c452344",
+                    "rank": 9
+                }
+            ],
+            "query": "angular vs. react"
+        },
+        {
+            "data": [
+                {
+                    "relevant": true,
+                    "url": "https://www.wired.com/2015/08/robots-will-steal-jobs-theyll-give-us-new-ones/",
+                    "rank": 0
+                },
+                {
+                    "relevant": true,
+                    "url": "https://www.wired.com/story/sorry-congress-the-tax-bill-wont-create-the-jobs-of-the-future/",
+                    "rank": 1
+                },
+                {
+                    "relevant": true,
+                    "url": "https://gizmodo.com/students-pledge-to-refuse-job-interviews-at-google-in-p-1826614260",
+                    "rank": 2
+                },
+                {
+                    "relevant": true,
+                    "url": "https://techcrunch.com/2016/11/09/trump-promises-to-bring-back-manufacturing-jobs-but-robots-wont-let-him/",
+                    "rank": 3
+                },
+                {
+                    "relevant": false,
+                    "url": "https://gizmodo.com/alibabas-jack-ma-issues-dire-warning-that-ai-could-stea-1794614037",
+                    "rank": 4
+                },
+                {
+                    "relevant": true,
+                    "url": "https://www.wired.com/2017/02/robots-will-soon-taxes-bye-bye-accounting-jobs/",
+                    "rank": 5
+                },
+                {
+                    "relevant": true,
+                    "url": "https://gizmodo.com/emerging-tech-will-create-more-jobs-than-it-kills-by-20-1829111519",
+                    "rank": 6
+                },
+                {
+                    "relevant": true,
+                    "url": "https://gizmodo.com/the-8-signs-that-machine-learning-will-automate-some-or-1831853145",
+                    "rank": 7
+                },
+                {
+                    "relevant": false,
+                    "url": "https://www.wired.com/1994/10/a-smart-look-at-artificial-intelligence/",
+                    "rank": 8
+                },
+                {
+                    "relevant": false,
+                    "url": "https://gizmodo.com/everything-you-know-about-artificial-intelligence-is-wr-1764020220",
+                    "rank": 9
+                }
+            ],
+            "query": "artificial intelligence +jobs -steve"
+        },
+        {
+            "data": [
+                {
+                    "relevant": true,
+                    "url": "https://techcrunch.com/2007/05/27/event-of-the-week-steve-jobs-bill-gates-on-stage-at-d/",
+                    "rank": 0
+                },
+                {
+                    "relevant": true,
+                    "url": "https://www.wired.com/2007/05/steve-and-bill-/",
+                    "rank": 1
+                },
+                {
+                    "relevant": true,
+                    "url": "https://www.wired.com/2007/05/jobs-gates-the-biggest-reunion-since-simon-garfunkel/",
+                    "rank": 2
+                },
+                {
+                    "relevant": true,
+                    "url": "https://www.wired.com/1998/12/gates-5/",
+                    "rank": 3
+                },
+                {
+                    "relevant": true,
+                    "url": "https://gizmodo.com/bill-gates-and-steve-jobs-wish-good-will-to-all-men-337222",
+                    "rank": 4
+                },
+                {
+                    "relevant": true,
+                    "url": "https://gizmodo.com/apples-legendary-lisa-operating-system-is-coming-to-you-1821606783",
+                    "rank": 5
+                },
+                {
+                    "relevant": true,
+                    "url": "https://www.wired.com/2015/08/forbes-richest-tech/",
+                    "rank": 6
+                },
+                {
+                    "relevant": false,
+                    "url": "https://www.wired.com/2013/11/21-12-from-the-editor/",
+                    "rank": 7
+                },
+                {
+                    "relevant": false,
+                    "url": "https://www.theverge.com/2014/2/5/5381080/satya-nadella-microsoft-ceo-full-story",
+                    "rank": 8
+                },
+                {
+                    "relevant": false,
+                    "url": "https://techcrunch.com/2007/08/30/microsoft-execs-active-on-facebook-plus-is-bill-g-hot-or-not/",
+                    "rank": 9
+                }
+            ],
+            "query": "steve jobs and bill gates"
+        },
+        {
+            "data": [
+                {
+                    "relevant": true,
+                    "url": "https://www.wired.com/2009/08/biggest-record-label-earns-more-from-spotify-than-itunes-in-sweden/",
+                    "rank": 0
+                },
+                {
+                    "relevant": true,
+                    "url": "https://www.wired.com/2009/08/six-million-songs-in-your-pocket-apple-approves-spotify-for-iphone/",
+                    "rank": 1
+                },
+                {
+                    "relevant": true,
+                    "url": "https://www.wired.com/2009/08/spotify-approved-does-apple-care-more-about-apps-than-music/",
+                    "rank": 2
+                },
+                {
+                    "relevant": true,
+                    "url": "https://www.theverge.com/2015/3/16/8225901/kendrick-lamar-album-leak-itunes-pulled",
+                    "rank": 3
+                },
+                {
+                    "relevant": true,
+                    "url": "https://techcrunch.com/2010/01/04/google-spotify-launch-android-nexus-one/",
+                    "rank": 4
+                },
+                {
+                    "relevant": true,
+                    "url": "https://www.wired.com/2009/08/apple-approves-spotify-iphone-app-in-europe/",
+                    "rank": 5
+                },
+                {
+                    "relevant": false,
+                    "url": "https://www.wired.com/2009/08/rhapsody-in-blue-proposed-iphone-app-apple-not-user-friendly/",
+                    "rank": 6
+                },
+                {
+                    "relevant": false,
+                    "url": "https://www.wired.com/2009/10/spotify-adds-offline-listening-to-desktop/",
+                    "rank": 7
+                },
+                {
+                    "relevant": false,
+                    "url": "https://www.theverge.com/2012/5/3/2996974/samsung-music-hub",
+                    "rank": 8
+                },
+                {
+                    "relevant": true,
+                    "url": "https://medium.com/data-xd/i-switched-from-itunes-to-spotify-and-discovered-a-new-thing-about-data-management-3bcb611f1810",
+                    "rank": 9
+                }
+            ],
+            "query": "itunes spotify"
+        },
+        {
+            "data": [
+                {
+                    "relevant": true,
+                    "url": "https://gizmodo.com/theres-now-a-proven-way-for-quantum-computers-to-beat-c-1829844452",
+                    "rank": 0
+                },
+                {
+                    "relevant": true,
+                    "url": "https://gizmodo.com/what-will-quantum-computer-games-be-like-1827405067",
+                    "rank": 1
+                },
+                {
+                    "relevant": true,
+                    "url": "https://medium.com/xanaduai/quantum-machine-learning-1-0-76a525c8cf69",
+                    "rank": 2
+                },
+                {
+                    "relevant": true,
+                    "url": "https://gizmodo.com/scientists-propose-a-new-kind-of-quantum-computer-but-1800676990",
+                    "rank": 3
+                },
+                {
+                    "relevant": true,
+                    "url": "https://www.wired.com/2016/05/ibm-letting-anyone-play-quantum-computer/",
+                    "rank": 4
+                },
+                {
+                    "relevant": true,
+                    "url": "https://medium.com/xanaduai/training-quantum-neural-networks-with-pennylane-pytorch-and-tensorflow-c669108118cc",
+                    "rank": 5
+                },
+                {
+                    "relevant": true,
+                    "url": "https://gizmodo.com/ibm-announces-two-fancy-new-quantum-computers-1820311244",
+                    "rank": 6
+                },
+                {
+                    "relevant": true,
+                    "url": "https://www.wired.com/2013/05/google-dwave/",
+                    "rank": 7
+                },
+                {
+                    "relevant": true,
+                    "url": "https://gizmodo.com/google-unveils-largest-quantum-computer-yet-but-so-wha-1823546420",
+                    "rank": 8
+                },
+                {
+                    "relevant": true,
+                    "url": "https://gizmodo.com/two-incredible-new-quantum-machines-have-made-actual-sc-1820840375",
+                    "rank": 9
+                }
+            ],
+            "query": "quantum computer"
+        }
+    ]
+}

@@ -32,7 +32,7 @@ def kappa_coef(val1, val2):
 
 if __name__ == "__main__":
     validations = []
-    files = glob(os.path.join('validations', '*'))
+    files = glob(os.path.join('validations', 'assessor_*'))
     assert(len(files) > 1)
     for filename in files:
         with open(filename) as f:

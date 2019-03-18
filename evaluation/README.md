@@ -33,21 +33,6 @@ These are the evaluated queries:
 - itunes spotify
 - quantum computer
 
-
-## Offline metrics
-They all are query oriented:
-### Unranked evaluation
-Precision
-
-### Ranked evaluation
-Precision at rank k (we will try k = 10) - P@10
-Reciprocal rank: 1/rank of first relevant item
-Average precision (AP)
-
-#### User-oriented evaluation
-DCG
-Normalized DCG
-
 ## Checker
 Each assessor has a validation output (JSON format). The script checker.py will check they all are consistent in terms of queries and documents judged.
 
@@ -65,3 +50,24 @@ To ensure the reliability of the judged documents, we compute the cohen's kappa 
 python kappa_coefficient.py
 ~~~
 No need of parameters, it will read from the _validation_ folder.
+
+## Merge evaluations
+*TODO*
+
+## Offline metrics
+They all are query oriented:
+- Unranked evaluation
+    - Precision
+- Ranked evaluation
+    - Precision at rank k (we will try k = {2,5}) - P@2, P@5
+    - Reciprocal rank: 1/rank of first relevant item
+    - Average precision (AP)
+- User-oriented evaluation
+    - DCG
+    - Normalized DCG
+
+### Run
+~~~
+python calculate_metrics.py
+~~~
+No need of parameters, it will read from the validation/global.json
