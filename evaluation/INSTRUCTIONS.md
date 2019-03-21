@@ -29,3 +29,13 @@ These are the evaluated queries:
 - steve jobs and bill gates
 - itunes spotify
 - quantum computer
+- "cross platform" vs. native
+- "apple watch" vs. "samsung galaxy watch"
+- microsoft slack teams
+- instagram stories snapchat
+- top javascript frameworks +learn +web
+- "google assistant" or Siri
+- benefits seo
+- robotics ai
+- is popcorn time up
+- facebook privacy scandal
