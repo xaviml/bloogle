@@ -36,6 +36,7 @@ def calc_normalized_DCG(rank):
 
 """Expected reciprocal rank"""
 def err(rank, theta=1):
+    rank = list(map(lambda r: r/max(rank), rank))
     err = 0
     for k, R_k in enumerate(rank, 1):
         # at k
