@@ -37,5 +37,5 @@ These are the evaluated queries:
 - "google assistant" or Siri
 - benefits seo
 - robotics ai
-- is popcorn time up
+- is popcorn time legal
 - facebook privacy scandal
