@@ -33,9 +33,9 @@ These are the evaluated queries:
 - "apple watch" vs. "samsung galaxy watch"
 - microsoft slack teams
 - instagram stories snapchat
-- top javascript frameworks +learn +web
+- javascript frameworks
 - "google assistant" or Siri
 - benefits seo
 - robotics ai
-- is popcorn time up
+- is popcorn time legal
 - facebook privacy scandal
