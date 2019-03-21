@@ -34,6 +34,21 @@ def calc_normalized_DCG(rank):
     IDCG = calc_DCG(ideal_rank)
     return DCG/IDCG
 
+"""Expected reciprocal rank"""
+def err(rank, g_max=1):
+    """mapping from relevance grades to probability of
+relevance"""
+    def _R(gith, g_max):
+        return (math.pow(2, gith)-1) / math.pow(2, g_max)
+
+    p = 1
+    err = 0
+    for idx, gith in enumerate(rank):
+        r = idx + 1
+        R = _R(gith, g_max)
+        err = err + p * R/r
+        p = p * (1 - R)
+    return err
 
 if __name__ == "__main__":
     with open('validations/global.json') as f:
@@ -50,6 +65,7 @@ if __name__ == "__main__":
         print(f'Average precision (AP): {calc_average_precision(relevancy):.3f}')
         print(f'DCG: {calc_DCG(relevancy):.3f}')
         print(f'Normalized DCG: {calc_normalized_DCG(relevancy):.3f}')
-        print()
+        print(f'Normalized DCG: {calc_normalized_DCG(relevancy):.3f}')
+        print(f'Expected Reciprocal Rank: {err(relevancy, 1):.3f}')
     
 
