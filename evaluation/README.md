@@ -31,7 +31,6 @@ They all are query oriented:
     - Reciprocal rank: 1/rank of first relevant item
     - Average precision (AP)
 - User-oriented evaluation
-    - DCG
     - Normalized DCG
 
 ### Run
