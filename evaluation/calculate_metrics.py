@@ -20,12 +20,11 @@ def calc_average_precision(rank):
 
 
 def calc_reciprocal_rank(rank):
-    rank = next((idx for idx, value in enumerate(rank) if value), None)
-    return rank+1 if rank is not None else None
+    return next((1/(idx+1) for idx, value in enumerate(rank) if value), None)
 
 
 def calc_DCG(rank):
-    # We are adding 2 in the denomitor because the idx is 0-based index, so we need to add an extra 1
+    # We are adding 2 in the denominator because the idx is 0-based index, so we need to add an extra 1
     return sum((math.pow(2, value)-1)/(math.log2(idx+2)) for idx, value in enumerate(rank))
 
 
