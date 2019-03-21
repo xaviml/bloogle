@@ -5,12 +5,15 @@ import os
 
 
 def check(data, filename):
+    NUM_QUERIES = 20
+    NUM_DOCUMENTS_PER_QUERY = 10
+
     queries = data['queries']
-    if len(queries) != 10:
+    if len(queries) != NUM_QUERIES:
         print(f'{filename} has {len(queries)} queries')
         return False
     for query in queries:
-        if len(query['data']) != 10:
+        if len(query['data']) != NUM_DOCUMENTS_PER_QUERY:
             print(
                 f'{filename} has {len(query["data"])} elements for the query: {query["query"]}')
             return False
