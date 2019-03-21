@@ -35,12 +35,12 @@ def calc_normalized_DCG(rank):
     return DCG/IDCG
 
 """Expected reciprocal rank"""
-def err(rank, theta=1):
+def calc_err(rank, theta=1):
     rank = list(map(lambda r: r/max(rank), rank))
     err = 0
     for k, R_k in enumerate(rank, 1):
         # at k
-        p = np.prod([1-R_i for idx_i, R_i in enumerate(rank[:k-1])])
+        p = np.prod([1-R_i for R_i in rank[:k-1]])
 
         err += 1/k * p * R_k * (theta**(k-1))
 
@@ -61,5 +61,5 @@ if __name__ == "__main__":
         print(f'DCG: {calc_DCG(relevancy):.3f}')
         print(f'Normalized DCG: {calc_normalized_DCG(relevancy):.3f}')
         print(f'Normalized DCG: {calc_normalized_DCG(relevancy):.3f}')
-        print(f'Expected Reciprocal Rank: {err(relevancy, 1):.3f}')
+        print(f'Expected Reciprocal Rank: {calc_err(relevancy, 1):.3f}')
         print()
