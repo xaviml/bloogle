@@ -61,3 +61,4 @@ if __name__ == "__main__":
         print(f'Normalized DCG: {calc_normalized_DCG(relevancy):.3f}')
         print(f'Normalized DCG: {calc_normalized_DCG(relevancy):.3f}')
         print(f'Expected Reciprocal Rank: {err(relevancy, 1):.3f}')
+        print()
