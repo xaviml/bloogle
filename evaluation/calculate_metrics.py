@@ -5,6 +5,8 @@ import numpy as np
 import os
 import math
 import pandas as pd
+import seaborn as sns
+import matplotlib.pyplot as plt
 
 def checker(func):
     def wrapper(rank, *args, **kwargs):
@@ -86,3 +88,13 @@ if __name__ == "__main__":
         print(f'Normalized DCG: {normalized_DCG:.3f}')
         print()
     
+    df = pd.DataFrame(df)
+    df.set_index('query', inplace=True)
+    sns_plot = sns.clustermap(df, cmap="YlGnBu", col_cluster=True)
+    plt.setp(sns_plot.ax_heatmap.get_xticklabels(), rotation=45) # For x axis
+
+    # The table that prints out is too long, we will need a way to make it fit
+    # if we want to put the table on the report
+    #print(df.to_latex(float_format='%.3f'))
+
+    sns_plot.savefig('evaluation.png')
