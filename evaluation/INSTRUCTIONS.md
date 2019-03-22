@@ -19,23 +19,23 @@ The assessor will judge documents using Bloogle in validation mode, so there wil
 
 ### Queries
 These are the evaluated queries:
-1 machine learning
-2 machine learning online courses
-3 "apple" +fruit -ios
-4 "apple" -fruit +ios
-5 "deep learning" python
-6 angular vs. react
-7 artificial intelligence +jobs -steve
-8 steve jobs and bill gates
-9 itunes spotify
-10 quantum computer
-11 "cross platform" vs. native
-12 "apple watch" vs. "samsung galaxy watch"
-13 microsoft slack teams
-14 instagram stories snapchat
-15 javascript frameworks
-16 "google assistant" or Siri
-17 benefits seo
-18 robotics ai
-19 is popcorn time legal
-20 facebook privacy scandal
+1. machine learning
+2. machine learning online courses
+3. "apple" +fruit -ios
+4. "apple" -fruit +ios
+5. "deep learning" python
+6. angular vs. react
+7. artificial intelligence +jobs -steve
+8. steve jobs and bill gates
+9. itunes spotify
+10. quantum computer
+11. "cross platform" vs. native
+12. "apple watch" vs. "samsung galaxy watch"
+13. microsoft slack teams
+14. instagram stories snapchat
+15. javascript frameworks
+16. "google assistant" or Siri
+17. benefits seo
+18. robotics ai
+19. is popcorn time legal
+20. facebook privacy scandal
