@@ -16,11 +16,11 @@ def calc_precision(rank):
 
 def calc_average_precision(rank):
     precisions_at_k = [calc_precission_at_k(rank, idx+1) for idx, value in enumerate(rank) if value]
-    return sum(precisions_at_k) / len(precisions_at_k)
+    return sum(precisions_at_k) / len(precisions_at_k) if len(precisions_at_k) != 0 else 0
 
 
 def calc_reciprocal_rank(rank):
-    return next((1/(idx+1) for idx, value in enumerate(rank) if value), None)
+    return next((1/(idx+1) for idx, value in enumerate(rank) if value), 0)
 
 
 def calc_DCG(rank):
@@ -32,10 +32,12 @@ def calc_normalized_DCG(rank):
     ideal_rank = sorted(rank, reverse=True)
     DCG = calc_DCG(rank)
     IDCG = calc_DCG(ideal_rank)
-    return DCG/IDCG
+    return DCG/IDCG if IDCG != 0 else 0
 
 """Expected reciprocal rank"""
 def calc_err(rank, theta=1):
+    if max(rank) == 0:
+        return 0
     rank = list(map(lambda r: r/max(rank), rank))
     err = 0
     for k, R_k in enumerate(rank, 1):
@@ -58,8 +60,7 @@ if __name__ == "__main__":
         print(f'Precision at 5: {calc_precission_at_k(relevancy, 5):.3f}')
         print(f'Reciprocal rank: {calc_reciprocal_rank(relevancy):.3f}')
         print(f'Average precision (AP): {calc_average_precision(relevancy):.3f}')
-        print(f'DCG: {calc_DCG(relevancy):.3f}')
+        #print(f'DCG: {calc_DCG(relevancy):.3f}')
         print(f'Normalized DCG: {calc_normalized_DCG(relevancy):.3f}')
-        print(f'Normalized DCG: {calc_normalized_DCG(relevancy):.3f}')
-        print(f'Expected Reciprocal Rank: {calc_err(relevancy, 1):.3f}')
+        #print(f'Expected Reciprocal Rank: {calc_err(relevancy, 1):.3f}')
         print()
