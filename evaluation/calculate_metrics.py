@@ -97,4 +97,4 @@ if __name__ == "__main__":
     # if we want to put the table on the report
     #print(df.to_latex(float_format='%.3f'))
 
-    sns_plot.savefig('evaluation.png')
+    sns_plot.savefig('metrics.png')
