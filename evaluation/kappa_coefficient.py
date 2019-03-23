@@ -34,6 +34,9 @@ def kappa_coef(val1, val2):
     p_e = p_rel + p_nonrel
     return (p_a - p_e)/(1 - p_e)
 
+def transform_name(name):
+            return '_'.join(name.split('.')[0].split('_')[1:])
+
 if __name__ == "__main__":
     validations = []
     files = glob(os.path.join('validations', 'assessor_*'))
@@ -44,7 +47,7 @@ if __name__ == "__main__":
 
         queries = data['queries']
         validation = dict()
-        validation['name'] = filename
+        validation['name'] = transform_name(Path(filename).name)
         validation['data'] = dict()
         for query in queries:
             for value in query['data']:
@@ -55,21 +58,23 @@ if __name__ == "__main__":
     combinations = itertools.combinations(validations, 2)
     kappas = []
     df = []
+    
     for val1, val2 in combinations:
         kappa = kappa_coef(val1['data'], val2['data'])
         print(f"The Cohen's kappa coefficient between {val1['name']} and {val2['name']} is {kappa}")
         kappas.append(kappa)
         df.append({
-            'assessor1': Path(val1['name']).name,
-            'assessor2': Path(val2['name']).name,
+            'assessor1': val1['name'],
+            'assessor2': val2['name'],
             'kappa': kappa
         })
     if len(kappas) > 1:
         print(f"The average of the pair-wise coefficients is: {statistics.mean(kappas)}")
         df = pd.DataFrame(df)
-        df['assessors'] = df.apply(lambda row: row.assessor1 + row.assessor2, axis=1)
-        df.drop(['assessor1', 'assessor2'], axis=1, inplace=True)
-        df.set_index('assessors', inplace=True)
-        print(df)
-        sns_plot = sns.clustermap(df, cmap="YlGnBu", col_cluster=False)
+        #df['assessors'] = df.apply(lambda row: row.assessor1 + row.assessor2, axis=1)
+        #df.drop(['assessor1', 'assessor2'], axis=1, inplace=True)
+        df.set_index(['assessor1', 'assessor2'], inplace=True)
+        df = df.transpose()
+        sns_plot = sns.clustermap(df, cmap="YlGnBu", row_cluster=False, figsize=(10,6))
+        plt.setp(sns_plot.ax_heatmap.get_xticklabels(), rotation=45) # For x axis
         sns_plot.savefig('kappa.png')
