@@ -1,4 +1,4 @@
-# bloogle: A blog post content search engine
+# Bloogle: A blog post content search engine
 
 ![logo](https://github.com/xaviml/bloogle/raw/master/bloogle-search/src/assets/bloogle.png)
 
