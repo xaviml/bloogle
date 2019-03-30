@@ -14,16 +14,12 @@ def checker(func):
     return wrapper
 
 @checker
-def calc_precission_at_k(rank, k):
+def calc_precision_at_k(rank, k):
     return sum(rank[:k])/k
 
 @checker
-def calc_precision(rank):
-    return calc_precission_at_k(rank, len(rank))
-
-@checker
 def calc_average_precision(rank):
-    precisions_at_k = [calc_precission_at_k(rank, idx+1) for idx, value in enumerate(rank) if value]
+    precisions_at_k = [calc_precision_at_k(rank, idx+1) for idx, value in enumerate(rank) if value]
     return sum(precisions_at_k) / len(precisions_at_k)
 
 @checker
@@ -63,26 +59,26 @@ if __name__ == "__main__":
     queries = data['queries']
     for query in queries:
         relevancy = [elem['relevant'] for elem in query['data']]
-        precision = calc_precision(relevancy)
-        precission_at_2 = calc_precission_at_k(relevancy, 2)
-        precission_at_5 = calc_precission_at_k(relevancy, 5)
+        precission_at_2 = calc_precision_at_k(relevancy, 2)
+        precission_at_5 = calc_precision_at_k(relevancy, 5)
+        precision_at_10 = calc_precision_at_k(relevancy, 10)
         reciprocal_rank = calc_reciprocal_rank(relevancy)
         average_precision = calc_average_precision(relevancy)
         normalized_DCG = calc_normalized_DCG(relevancy)
         item = {
             'query': query['query'],
-            'precission': precision,
             'precission at rank 2': precission_at_2,
             'precission at rank 5': precission_at_5,
+            'precission at rank 10': precision_at_10,
             'reciprocal rank': reciprocal_rank,
             'average precision': average_precision,
             'normalized DCG': normalized_DCG
         }
         df.append(item)
         print(f'Query: {query["query"]}')
-        print(f'Precision: {precision:.3f}')
         print(f'Precision at 2: {precission_at_2:.3f}')
         print(f'Precision at 5: {precission_at_5:.3f}')
+        print(f'Precision at 10: {precision_at_10:.3f}')
         print(f'Reciprocal rank: {reciprocal_rank:.3f}')
         print(f'Average precision (AP): {average_precision:.3f}')
         print(f'Normalized DCG: {normalized_DCG:.3f}')
