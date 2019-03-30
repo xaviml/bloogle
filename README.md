@@ -1,4 +1,5 @@
-# bloogle: A blog content search engine
+![logo](https://github.com/xaviml/bloogle/raw/master/bloogle-search/src/assets/bloogle.png)
+#### Blog post content search engine
 
 ## Set up
 To run this, you need python >= 3.6.x and install the requirements:
