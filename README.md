@@ -1,5 +1,6 @@
 ![logo](https://github.com/xaviml/bloogle/raw/master/bloogle-search/src/assets/bloogle.png)
 #### Blog post content search engine
+Information retrieval systems have revolutionized the way people interact with the internet. They are tools with a wide array of uses which give rise to the need for web search engines that are spe- cialised for specific use cases. In this [paper](https://github.com/xaviml/bloogle/raw/master/paper.pdf), we describe a new blog post search engine and its architecture, starting with data acquisi- tion and followed by data processing and storage. We combined these modules into a single web application where a user is able to query for blog posts in a standard or advanced way. Finally, we discuss the evaluation of the system with collected validation data and discuss our system performance using offline metrics.
 
 ## Set up
 To run this, you need python >= 3.6.x and install the requirements:
